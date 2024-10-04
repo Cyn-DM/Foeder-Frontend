@@ -1,30 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react';
 import './App.css'
 
 export default function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-      
+      <RecipeList />
     </>
   )
 }
 
-function RecipeList(){
+function RecipeList() {
 
-  const recipes = Array();
+  const [recipes, setRecipes] = useState([]);
 
-  fetch('https://localhost:7058/api/Recipe')
-    .then(
-      (response) => {return response.json();}
-    )
-    .then{
-      
-    }
-  return {
-
+  useEffect(() => {
+    fetch('https://localhost:7058/api/Recipe')
+      .then(
+        (response) => { 
+          return response.json(); }
+      )
+      .then(
+        (data) => {
+          setRecipes(data);
+        }
+      )
   }
+    , []
+  );
+
+
+
+  return(
+  <ul>
+    {
+      recipes.map((recipe) =>
+        <li key={recipe.id}>
+          <h2>
+            {recipe.title}
+          </h2>
+        </li>
+      )
+    }
+  </ul>
+  )
+
 }
