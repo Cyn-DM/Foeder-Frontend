@@ -1,4 +1,4 @@
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import '../mainplus.css';
 
 
@@ -37,7 +37,7 @@ function Header(){
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a href='./recipes'>Recipes</a></li>
+              <li><Link to='./recipes'>Recipes</Link></li>
               <li>
                 <a>Parent</a>
                 <ul className="p-2">
@@ -51,10 +51,10 @@ function Header(){
           <a href="/" className='hidden sm:flex btn btn-primary text-primary-content text-lg foederFont'>Foeder</a>
         </div>
         <div className="navbar-center">
-        <a href="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</a>
+        <Link to="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
           <ul className="menu menu-horizontal hidden lg:flex">
-            <li><a href='./recipes' className='text-neutral-content'>Recipes</a></li> 
-            <li><a className="text-neutral-content">Household</a></li>
+            <li><Link to='./recipes' className='text-neutral-content'>Recipes</Link></li> 
+            <li><Link to="" className="text-neutral-content">Household</Link></li>
           </ul>
         </div>
         <div className="navbar-end">
