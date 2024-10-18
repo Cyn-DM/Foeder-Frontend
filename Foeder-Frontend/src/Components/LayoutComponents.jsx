@@ -1,5 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
 import '../mainplus.css';
+import {GoogleAuth} from "../Authentication/GoogleAuth"
 
 
 export default function Root(){
@@ -58,6 +59,7 @@ function Header(){
           </ul>
         </div>
         <div className="navbar-end">
+          <GoogleAuth />
         </div>
       </div>
     )
