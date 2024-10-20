@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import  axios  from "axios";
 
 export function GoogleAuth(){
     const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -17,29 +17,33 @@ export function GoogleAuth(){
         return () => {
             document.body.removeChild(script);
         }
-    }, []);
+    }, [setScriptLoaded]);
     
+    useEffect(() => {
+        if(scriptLoaded){
+            window.google.accounts.id.initialize({
+                client_id: '367820938286-u0u38i2711n088ttaikh6s6td31pegjd.apps.googleusercontent.com',
+                callback: handleCredentialResponse,
+                ux_mode: 'popup',
+            });
+
+            const button = document.getElementById('signInDiv');
+            google.accounts.id.renderButton(button, {size:'medium', text:'signin', shape:'pill', theme:'filled_black'});
+            google.accounts.id.prompt();
+        }
+    }, [scriptLoaded]);
+    
+    const handleCredentialResponse = (response) => {
+        axios.post('https://localhost:7058/api/Auth', 
+            {CredentialResponse: response.credential}
+        ).then((response) => console.log(response)).catch(error => console.error('Connection error:', error));
+    }
 
     return (
     <>
-        <div id="g_id_onload"
-            data-client_id="367820938286-u0u38i2711n088ttaikh6s6td31pegjd.apps.googleusercontent.com"
-            data-context="signin"
-            data-ux_mode="popup"
-            data-login_uri="https://localhost:7058/api/Auth"
-            data-auto_select="true"
-            data-itp_support="true">
-        </div>
-
-        <div className="g_id_signin bg-inherit"
-            data-type="standard"
-            data-shape="pill"
-            data-theme="outline"
-            data-text="signin_with"
-            data-size="medium"
-            data-logo_alignment="left">
-        </div>
-</>)
+        <div id='signInDiv'></div>
+    </>)
 }
+
 
 
