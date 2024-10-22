@@ -1,12 +1,21 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
+import { axiosInstance } from '../Authentication/GoogleAuth';
 
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch('https://localhost:7058/api/Recipe')
+    
+    if(axiosInstance != null){
+      axiosInstance.get('Recipe')
+      .then((response) => {setRecipes(response.data)})
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    /* fetch('https://localhost:7058/api/Recipe')
       .then(
         (response) => { 
           return response.json(); }
@@ -15,7 +24,7 @@ export default function RecipeList() {
         (data) => {
           setRecipes(data);
         }
-      )
+      ) */
   }
     , []
   );

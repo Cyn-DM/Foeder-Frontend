@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import  axios  from "axios";
 
+export let axiosInstance; 
+
+
 export function GoogleAuth(){
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
@@ -36,7 +39,12 @@ export function GoogleAuth(){
     const handleCredentialResponse = (response) => {
         axios.post('https://localhost:7058/api/Auth', 
             {CredentialResponse: response.credential}
-        ).then((response) => console.log(response)).catch(error => console.error('Connection error:', error));
+        ).then((response) => {
+           axiosInstance = axios.create({
+                baseURL: 'https://localhost:7058/api/',
+                headers: {'Authorization': `Bearer ${response.data}`}
+           })
+        }).catch(error => console.error('Connection error:', error));
     }
 
     return (
