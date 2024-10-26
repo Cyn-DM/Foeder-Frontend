@@ -1,15 +1,18 @@
 import {Link, Outlet} from "react-router-dom";
 import '../mainplus.css';
 import {GoogleAuth} from "../Authentication/GoogleAuth"
+import {AuthProvider} from "../Authentication/AuthProvider.jsx";
 
 
 export default function Root(){
     return ( 
     <>
-        <Header/>
-        <div className="w-full">  
-          <Outlet />
-        </div>
+        <AuthProvider>
+            <Header/>
+            <div className="w-full">
+                <Outlet />
+            </div>
+        </AuthProvider>
     </>
     
 

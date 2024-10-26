@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
-import { axiosInstance } from '../Authentication/GoogleAuth';
+import axios from "axios";
 
 export default function RecipeList() {
 
@@ -8,23 +8,13 @@ export default function RecipeList() {
 
   useEffect(() => {
     
-    if(axiosInstance != null){
-      axiosInstance.get('Recipe')
+    if(axios.defaults.headers.common['Authorization'] !== undefined){
+      axios.get('Recipe')
       .then((response) => {setRecipes(response.data)})
       .catch((error) => {
         console.log(error);
       });
     }
-    /* fetch('https://localhost:7058/api/Recipe')
-      .then(
-        (response) => { 
-          return response.json(); }
-      )
-      .then(
-        (data) => {
-          setRecipes(data);
-        }
-      ) */
   }
     , []
   );

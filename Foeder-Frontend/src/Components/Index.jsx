@@ -1,7 +1,9 @@
 import "../mainplus.css";
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 
 export default function IndexPage(){
+    const {user} = UseAuth()
     return (
         <div className="flex flex-col">
             <div className='flex justify-center bg-secondary py-20'>
@@ -12,8 +14,12 @@ export default function IndexPage(){
                 </div>
             </div>
             <div className="w-1/2 mx-auto flex mt-10 justify-center bg-secondary text-secondary-content rounded-md p-8 text-center">
-                <p>Welcome to foeder, your personal recipe and pantry keeper!</p>
+                <p><WelcomeMessage user={user}/></p>
             </div>
         </div>
     )
+}
+
+function WelcomeMessage({user}){
+    return user.name == undefined ? "Welcome to foeder, your personal recipe and pantry keeper!" : `Welcome ${user.name}`
 }
