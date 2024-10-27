@@ -60,7 +60,7 @@ function Header(){
         <Link to="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
           <ul className="menu menu-horizontal hidden lg:flex">
             <li className="text-neutral-content"><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
-            <li className="text-neutral-content"><Link to="" >Household</Link></li>
+            <li className="text-neutral-content"><Link to="./create-household" >Household</Link></li>
           </ul>
         </div>
         <div className="navbar-end">

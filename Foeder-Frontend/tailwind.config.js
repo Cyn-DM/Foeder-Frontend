@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-     "./src/**/*.{html,js,jsx}",
+     "./src/Authentication/*.{html,js,jsx}",
+	 "./src/Components/*.{html,js,jsx}",
+	 "./src/Routing/*.{html,js,jsx}"
   ],
   theme: [],
   daisyui: {

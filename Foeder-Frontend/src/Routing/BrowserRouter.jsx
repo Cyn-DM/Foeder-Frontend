@@ -5,6 +5,7 @@ import Root from "../Components/LayoutComponents.jsx"
 import IndexPage from "../Components/Index.jsx"
 import Recipes from "../Components/Recipes.jsx"
 import {Unauthorized} from "../Components/Unauthorized.jsx";
+import {CreateHousehold} from "../Components/CreateHousehold.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "unauthorized",
                 element: <Unauthorized />
+            },
+            {
+                path: "create-household",
+                element: <CreateHousehold />
             }
         ]
     }
