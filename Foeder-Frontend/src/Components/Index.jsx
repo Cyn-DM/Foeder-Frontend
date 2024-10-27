@@ -21,5 +21,5 @@ export default function IndexPage(){
 }
 
 function WelcomeMessage({user}){
-    return user.name == undefined ? "Welcome to foeder, your personal recipe and pantry keeper!" : `Welcome ${user.name}`
+    return user?.name ? `Welcome ${user.name}` : "Welcome to foeder, your personal recipe and pantry keeper!"
 }
