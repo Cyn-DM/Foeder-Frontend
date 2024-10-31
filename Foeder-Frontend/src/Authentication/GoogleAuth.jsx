@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import  axios  from "axios";
 import {UseAuth} from "./AuthProvider.jsx";
-import {jwtDecode} from "jwt-decode";
-import {element} from "prop-types";
-
 
 export function GoogleAuth(){
     const [scriptLoaded, setScriptLoaded] = useState(false);
-    const {login, isAuthenticated} = UseAuth();
+    const {isAuthenticated, handleCredentialResponse} = UseAuth();
 
 
     useEffect(() => {
@@ -23,7 +20,7 @@ export function GoogleAuth(){
         return () => {
             document.body.removeChild(script);
         }
-    }, [setScriptLoaded]);
+    }, []);
     
     useEffect(() => {
         if(scriptLoaded){
@@ -54,25 +51,9 @@ export function GoogleAuth(){
         }
     }, [scriptLoaded, isAuthenticated]);
 
-    axios.defaults.withCredentials = true;
 
-    const handleCredentialResponse = (response) => {
-        axios.post('https://localhost:7058/api/Auth/login',
-            {CredentialResponse: response.credential}
-        ).then((response) => {
-            let accessToken = response.data;
-            axios.defaults.baseURL = 'https://localhost:7058/api/';
-            axios.defaults.headers.common['Authorization'] =  `Bearer ${accessToken}`
-            let userInfo = jwtDecode(accessToken);
 
-            const user = { "name" : userInfo.unique_name,
-                "email" : userInfo.email,
-                "householdId" : userInfo.HouseholdId ?? undefined,
-            }
-            login(user);
 
-        }).catch(error => console.error('Connection error:', error));
-    }
 
     return (
     <>
