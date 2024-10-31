@@ -48,10 +48,14 @@ export function AuthProvider({children})
         }
     }
 
+    const clearRefreshToken = () => {
+        axios.get('/Auth/logout').catch((error) => console.log(error));
+    }
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
         clearAccessToken();
+        clearRefreshToken();
     }
 
     const getAccessToken = () => {
