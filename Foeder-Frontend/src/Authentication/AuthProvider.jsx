@@ -15,14 +15,15 @@ export function AuthProvider({children})
     axios.interceptors.request.use((axiosConfig) =>{
         axiosConfig.baseURL =  'https://localhost:7058/api';
         let accessToken = localStorage.getItem('access_token');
-        if (accessToken) {
+        if (accessToken != null) {
             login(createUser(accessToken))
             axios.defaults.withCredentials = true;
             axiosConfig.headers.common['Authorization'] = localStorage.getItem('access_token');
         }
-        if (!accessToken) {
+        if (accessToken == null) {
             logout()
         }
+        return axiosConfig;
     }
  )
 
@@ -82,8 +83,9 @@ export function AuthProvider({children})
     }
 
     const handleCredentialResponse = (response) => {
+        let config = AxiosRequestConfig()
         axios.post('/Auth/login',
-            {CredentialResponse: response.credential}
+            {CredentialResponse: response.credential},
         ).then((response) => {
             setAccessTokenLocalStorage(response.data)
             createUser(response.data);
