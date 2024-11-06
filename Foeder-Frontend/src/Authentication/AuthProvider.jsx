@@ -97,7 +97,7 @@ export function AuthProvider({children})
             {CredentialResponse: response.credential},
         ).then((response) => {
             setAccessTokenLocalStorage(response.data)
-            createUser(response.data);
+            let user = createUser(response.data);
             login(user);
         }).catch(error => console.error('Connection error:', error));
     }
