@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
@@ -11,18 +11,21 @@ export function AuthProvider({children})
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
+    axios.defaults.withCredentials = true;
+
     // Add a request interceptor
     axios.interceptors.request.use((axiosConfig) =>{
         axiosConfig.baseURL =  'https://localhost:7058/api';
+
         let accessToken = localStorage.getItem('access_token');
-        if (accessToken != null) {
-            login(createUser(accessToken))
-            axios.defaults.withCredentials = true;
+        if (accessToken) {
+            let user = createUser(accessToken)
+            login(user)
             axiosConfig.headers.common['Authorization'] = localStorage.getItem('access_token');
+        } else {
+            logout();
         }
-        if (accessToken == null) {
-            logout()
-        }
+
         return axiosConfig;
     }
  )
@@ -39,10 +42,12 @@ export function AuthProvider({children})
             "householdId" : userInfo.HouseholdId ?? undefined,
         }
     }
+
     const login = (user) => {
     setUser(user);
     setIsAuthenticated(true);
-}
+    }
+
     const clearAccessToken = () => {
         if (localStorage.getItem('access_token')) {
             localStorage.removeItem("accessToken");
@@ -50,8 +55,11 @@ export function AuthProvider({children})
     }
 
     const clearRefreshToken = () => {
-        axios.get('/Auth/logout').catch((error) => console.log(error));
+        const skipIntercept = axios.create();
+        skipIntercept.withCredentials = true;
+        skipIntercept.get('https://localhost:7058/api/Auth/logout', ).catch((error) => console.log(error));
     }
+
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
@@ -76,15 +84,16 @@ export function AuthProvider({children})
         })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
-                    logout()
+                    logout();
                     navigate('/unauthorized');
                 }
             })
     }
 
     const handleCredentialResponse = (response) => {
-        let config = AxiosRequestConfig()
-        axios.post('/Auth/login',
+        const skipIntercept = axios.create();
+        skipIntercept.withCredentials = true;
+        skipIntercept.post('https://localhost:7058/api/Auth/login',
             {CredentialResponse: response.credential},
         ).then((response) => {
             setAccessTokenLocalStorage(response.data)
