@@ -4,10 +4,10 @@ require('dotenv').config({ path: './secrets.env' });
 const foederLoginEmail = process.env.foederLoginEmail;
 const foederLoginPassword = process.env.foederLoginPass;
 
-test('login', async ({}) => {
+test('login', async ({page}) => {
     await page.goto('https://localhost:5173/');
     const page1Promise = page.waitForEvent('popup');
-    await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByLabel('Inloggen met Google').click();
+    await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().locator('#container').click();
     const page1 = await page1Promise;
     await page1.getByLabel('Email or phone').click();
     await page1.getByLabel('Email or phone').fill(foederLoginEmail);
