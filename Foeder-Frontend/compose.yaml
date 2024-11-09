@@ -2,7 +2,9 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev  
+      dockerfile: Dockerfile.dev
+      networks:
+        - foeder-network
     environment:
       - IN_DOCKER=true
     volumes:
