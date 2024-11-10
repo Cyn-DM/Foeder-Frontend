@@ -6,29 +6,36 @@ import {jwtDecode} from "jwt-decode";
 const AuthContext = createContext(null)
 
 export function AuthProvider({children})
-{   
+{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    let docker = false;
+    docker = import.meta.env.docker;
+    let backendUrl;
+    if (docker) {
+        backendUrl =  'https://backend:7058/api';
+    } else {
+        backendUrl =  'https://localhost:7058/api';
+    }
 
     axios.defaults.withCredentials = true;
-
     // Add a request interceptor
     axios.interceptors.request.use((axiosConfig) =>{
-        axiosConfig.baseURL =  'https://localhost:7058/api';
+            axiosConfig.baseURL = backendUrl;
 
-        let accessToken = localStorage.getItem('access_token');
-        if (accessToken) {
-            let user = createUser(accessToken)
-            login(user)
-            axiosConfig.headers.common['Authorization'] = localStorage.getItem('access_token');
-        } else {
-            logout();
+            let accessToken = localStorage.getItem('access_token');
+            if (accessToken) {
+                let user = createUser(accessToken)
+                login(user)
+                axiosConfig.headers.common['Authorization'] = localStorage.getItem('access_token');
+            } else {
+                logout();
+            }
+
+            return axiosConfig;
         }
-
-        return axiosConfig;
-    }
- )
+    )
 
     AuthProvider.propTypes = {
         children: PropTypes.any
@@ -44,8 +51,8 @@ export function AuthProvider({children})
     }
 
     const login = (user) => {
-    setUser(user);
-    setIsAuthenticated(true);
+        setUser(user);
+        setIsAuthenticated(true);
     }
 
     const clearAccessToken = () => {
@@ -56,8 +63,9 @@ export function AuthProvider({children})
 
     const clearRefreshToken = () => {
         const skipIntercept = axios.create();
+        skipIntercept.baseURL = backendUrl;
         skipIntercept.withCredentials = true;
-        skipIntercept.get('https://localhost:7058/api/Auth/logout', ).catch((error) => console.log(error));
+        skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
     }
 
     const logout = () => {
@@ -92,8 +100,9 @@ export function AuthProvider({children})
 
     const handleCredentialResponse = (response) => {
         const skipIntercept = axios.create();
+        skipIntercept.baseURL = backendUrl;
         skipIntercept.withCredentials = true;
-        skipIntercept.post('https://localhost:7058/api/Auth/login',
+        skipIntercept.post('/Auth/login',
             {CredentialResponse: response.credential},
         ).then((response) => {
             setAccessTokenLocalStorage(response.data)
