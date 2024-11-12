@@ -1,4 +1,4 @@
-import {createContext, useContext, useState, useEffect} from "react";
+import {createContext, useContext, useState} from "react";
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
@@ -10,14 +10,7 @@ export function AuthProvider({children})
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    let docker = false;
-    docker = import.meta.env.docker;
-    let backendUrl;
-    if (docker) {
-        backendUrl =  'https://backend:7058/api';
-    } else {
-        backendUrl =  'https://localhost:7058/api';
-    }
+    let backendUrl = 'https://localhost:7058/api';
 
     axios.defaults.withCredentials = true;
     // Add a request interceptor
@@ -63,7 +56,7 @@ export function AuthProvider({children})
 
     const clearRefreshToken = () => {
         const skipIntercept = axios.create();
-        skipIntercept.baseURL = backendUrl;
+        skipIntercept.defaults.baseURL = backendUrl;
         skipIntercept.withCredentials = true;
         skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
     }
@@ -100,7 +93,7 @@ export function AuthProvider({children})
 
     const handleCredentialResponse = (response) => {
         const skipIntercept = axios.create();
-        skipIntercept.baseURL = backendUrl;
+        skipIntercept.defaults.baseURL = backendUrl;
         skipIntercept.withCredentials = true;
         skipIntercept.post('/Auth/login',
             {CredentialResponse: response.credential},

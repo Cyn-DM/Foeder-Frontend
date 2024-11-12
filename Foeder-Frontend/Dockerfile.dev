@@ -17,6 +17,8 @@ COPY . /app
 ENV CI=true
 ENV PORT=5173
 
-EXPOSE 5173
+ENV VITE_DOCKER=true;
+
+EXPOSE 7058
 
 CMD [ "npm", "run", "dev" ]
