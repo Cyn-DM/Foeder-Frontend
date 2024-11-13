@@ -12,23 +12,26 @@ export function AuthProvider({children})
     const navigate = useNavigate();
     let backendUrl = 'https://localhost:7058/api';
 
-    axios.defaults.withCredentials = true;
-    // Add a request interceptor
-    axios.interceptors.request.use((axiosConfig) =>{
-            axiosConfig.baseURL = backendUrl;
+    const axiosInstance = axios.create({
+        baseURL: backendUrl,
+        withCredentials: true,
+    });
 
-            let accessToken = localStorage.getItem('access_token');
+
+    axiosInstance.interceptors.request.use(
+        (config) => {
+            const accessToken = localStorage.getItem('access_token');
             if (accessToken) {
-                let user = createUser(accessToken)
-                login(user)
-                axiosConfig.headers.common['Authorization'] = localStorage.getItem('access_token');
+                let user = createUser(accessToken);
+                login(user);
+                config.headers['Authorization'] = accessToken;
             } else {
                 logout();
             }
-
-            return axiosConfig;
-        }
-    )
+            return config;
+        },
+        (error) => Promise.reject(error)
+    );
 
     AuthProvider.propTypes = {
         children: PropTypes.any
@@ -114,7 +117,8 @@ export function AuthProvider({children})
             logout,
             getAccessToken,
             setAccessToken: setAccessTokenFromRefresh,
-            handleCredentialResponse
+            handleCredentialResponse,
+            axiosInstance
         }}>
             {children}
         </AuthContext.Provider>
