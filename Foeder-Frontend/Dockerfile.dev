@@ -5,7 +5,7 @@ FROM node:20.17.0
 # Set working directory
 WORKDIR /app
 
-COPY certs /app/certs
+COPY --ignore=missing certs /app/certs
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
