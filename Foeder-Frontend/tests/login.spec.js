@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-require('dotenv').config({ path: './secrets.env' });
+import dotenv from 'dotenv';
+dotenv.config({ path: './secrets.env' });
 
 const foederLoginEmail = process.env.foederLoginEmail;
 const foederLoginPassword = process.env.foederLoginPass;
