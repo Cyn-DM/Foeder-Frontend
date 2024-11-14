@@ -10,7 +10,7 @@ chromium.use(StealthPlugin());
 const test = base.extend({
     browser: async ({}, use) => {
         const browser = await chromium.launch({
-            headless: false,
+            headless: true,
         });
         await use(browser);
         await browser.close();
