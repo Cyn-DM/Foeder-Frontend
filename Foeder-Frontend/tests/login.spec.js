@@ -1,6 +1,13 @@
 import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config({ path: './secrets.env' });
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+    use: {
+        ignoreHTTPSErrors: true,
+    },
+});
 
 const foederLoginEmail = process.env.foederLoginEmail;
 const foederLoginPassword = process.env.foederLoginPass;
