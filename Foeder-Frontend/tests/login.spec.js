@@ -23,8 +23,7 @@ const foederLoginPassword = process.env.foederLoginPass;
 test.describe("With stealth plugin", () => {
     test.use({ignoreHTTPSErrors: true});
 
-    test('login', async () => {
-        const browser = await chromium.launch({headless: false});
+    test('login', async (browser) => {
         const page = await browser.newPage();
         await page.goto('https://localhost:5173/');
         await page.setViewportSize({ width: 1600, height: 900 }); // Adjust to your preference
