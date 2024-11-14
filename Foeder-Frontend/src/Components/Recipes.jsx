@@ -1,21 +1,19 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
-
+  const {getAccessToken, axiosInstance} = UseAuth();
   useEffect(() => {
-    fetch('https://localhost:7058/api/Recipe')
-      .then(
-        (response) => { 
-          return response.json(); }
-      )
-      .then(
-        (data) => {
-          setRecipes(data);
+      axiosInstance.get('/Recipe')
+      .then((response) => {setRecipes(response.data)})
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          getAccessToken();
         }
-      )
+      });
   }
     , []
   );

@@ -1,14 +1,19 @@
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import '../mainplus.css';
+import {GoogleAuth} from "../Authentication/GoogleAuth"
+import {AuthProvider, UseAuth} from "../Authentication/AuthProvider.jsx";
+import {AuthLink} from "../Routing/AuthLink.jsx";
 
 
 export default function Root(){
     return ( 
     <>
-        <Header/>
-        <div className="w-full">  
-          <Outlet />
-        </div>
+        <AuthProvider>
+            <Header/>
+            <div className="w-full">
+                <Outlet />
+            </div>
+        </AuthProvider>
     </>
     
 
@@ -16,6 +21,7 @@ export default function Root(){
 }
 
 function Header(){
+    const {isAuthenticated} = UseAuth();
     return (
       <div className="navbar bg-neutral flex ">
         <div className="navbar-start">
@@ -37,7 +43,7 @@ function Header(){
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a href='./recipes'>Recipes</a></li>
+              <li><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
               <li>
                 <a>Parent</a>
                 <ul className="p-2">
@@ -48,16 +54,17 @@ function Header(){
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <a href="/" className='hidden sm:flex btn btn-primary text-primary-content text-lg foederFont'>Foeder</a>
+          <Link to="/" className='hidden sm:flex btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
         </div>
         <div className="navbar-center">
-        <a href="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</a>
+        <Link to="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
           <ul className="menu menu-horizontal hidden lg:flex">
-            <li><a href='./recipes' className='text-neutral-content'>Recipes</a></li> 
-            <li><a className="text-neutral-content">Household</a></li>
+            <li className="text-neutral-content"><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
+            <li className="text-neutral-content"><Link to="" >Household</Link></li>
           </ul>
         </div>
         <div className="navbar-end">
+          <GoogleAuth />
         </div>
       </div>
     )

@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1.4
+
+FROM node:20.17.0
+
+# Set working directory
+WORKDIR /app
+
+COPY certs /app/certs
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
+# Same as npm install
+RUN npm ci
+
+COPY . /app
+
+ENV CI=true
+ENV PORT=5173
+
+ENV VITE_DOCKER=true;
+
+EXPOSE 7058
+
+CMD [ "npm", "run", "dev" ]
