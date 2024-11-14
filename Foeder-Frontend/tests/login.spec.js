@@ -1,13 +1,8 @@
 import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config({ path: './secrets.env' });
-import { defineConfig } from '@playwright/test';
 
-export default defineConfig({
-    use: {
-        ignoreHTTPSErrors: true,
-    },
-});
+
 
 const foederLoginEmail = process.env.foederLoginEmail;
 const foederLoginPassword = process.env.foederLoginPass;
@@ -15,7 +10,7 @@ const userAgent =
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
 
 test.describe("With user agent", () => {
-    test.use({userAgent});
+    test.use({userAgent, ignoreHTTPSErrors: true});
 
     test('login', async ({page}) => {
 
