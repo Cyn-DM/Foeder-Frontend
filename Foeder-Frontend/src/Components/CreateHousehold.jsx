@@ -1,6 +1,31 @@
+import { UseAuth } from "../Authentication/AuthProvider.jsx"
+import {useState} from "react";
+
 export function CreateHousehold() {
-    
+    const { axiosInstance } = UseAuth();
+    const [labelText, setLabelText] = useState("")
     function handleClick(){
+        const input = document.getElementById("householdInput").value;
+
+        if (input.trim() === ""){
+            setLabelText("Please fill in a household name.")
+        } else
+        if (input.length > 50) {
+            setLabelText("Please enter a household name less than 50 characters.")
+        } else {
+            axiosInstance.post('/Household/AddHousehold', { Name: input })
+                .then(() => {
+
+                })
+                .catch((error) => {
+                    if (error.response.status === 400) {
+                        const errors = error.response.data.errors.Name;
+                        setLabelText(errors.join('\n'));
+                    }
+                })
+        }
+
+
 
     }
 
@@ -15,8 +40,9 @@ export function CreateHousehold() {
                     <div className="label">
                         <div className='label-text md:text-xl'>Household name</div>
                     </div>
-                    <input type='text' placeholder='Household name' className='input input-bordered w-full max-w-xs md:input-lg'/>
+                    <input type='text' placeholder='Household name' className='input input-bordered w-full max-w-xs md:input-lg' id="householdInput"/>
                     <button onClick={handleClick} type='submit' className='btn btn-secondary btn-block  mt-6'>Submit</button>
+                    <label className="warning-label w-full max-w-xs whitespace-pre-wrap">{labelText}</label>
                 </div>
             </div>
         </div>
