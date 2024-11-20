@@ -14,6 +14,9 @@ RUN npm ci
 
 COPY . /app
 
+LABEL org.opencontainers.image.source=https://github.com/Cyn-DM/Foeder-Frontend
+LABEL org.opencontainers.image.description="Foeder frontend"
+
 ENV CI=true
 ENV PORT=5173
 
