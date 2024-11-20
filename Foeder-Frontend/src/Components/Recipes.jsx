@@ -1,23 +1,19 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
-import axios from "axios";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
-  const {getAccessToken} = UseAuth();
+  const {getAccessToken, axiosInstance} = UseAuth();
   useEffect(() => {
-    
-    if(axios.defaults.headers.common['Authorization'] !== undefined){
-      axios.get('Recipe')
+      axiosInstance.get('/Recipe')
       .then((response) => {setRecipes(response.data)})
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           getAccessToken();
         }
       });
-    }
   }
     , []
   );
