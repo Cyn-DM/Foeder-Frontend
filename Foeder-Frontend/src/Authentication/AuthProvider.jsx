@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
@@ -9,7 +9,6 @@ export function AuthProvider({children})
 {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();
     let backendUrl = 'https://localhost:7058/api';
 
     const axiosInstance = axios.create({
@@ -17,16 +16,17 @@ export function AuthProvider({children})
         withCredentials: true,
     });
 
+    useEffect(() => {
+        setAccessTokenFromRefresh()
+    }, [])
 
     axiosInstance.interceptors.request.use(
         (config) => {
             const accessToken = localStorage.getItem('access_token');
             if (accessToken) {
-                let user = createUser(accessToken);
-                login(user);
                 config.headers['Authorization'] = accessToken;
             } else {
-                logout();
+                setAccessTokenFromRefresh()
             }
             return config;
         },
@@ -83,13 +83,14 @@ export function AuthProvider({children})
     }
 
     const setAccessTokenFromRefresh = () => {
-        axios.get("/Auth/refresh").then((response) => {
+        axios.get("/Auth/refresh", {withCredentials: true, baseURL: backendUrl}).then((response) => {
             setAccessTokenLocalStorage(response.data);
+            const createdUser = createUser(response.data);
+            login(createdUser);
         })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     logout();
-                    navigate('/unauthorized');
                 }
             })
     }
@@ -97,7 +98,7 @@ export function AuthProvider({children})
     const handleCredentialResponse = (response) => {
         const skipIntercept = axios.create();
         skipIntercept.defaults.baseURL = backendUrl;
-        skipIntercept.withCredentials = true;
+        skipIntercept.defaults.withCredentials = true;
         skipIntercept.post('/Auth/login',
             {CredentialResponse: response.credential},
         ).then((response) => {
