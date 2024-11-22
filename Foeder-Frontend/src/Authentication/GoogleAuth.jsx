@@ -37,7 +37,7 @@ export function GoogleAuth(){
                 element.setAttribute('id', 'signInDiv');
                 const button = container.appendChild(element);
                 // eslint-disable-next-line no-undef
-                google.accounts.id.renderButton(button, {size:'medium', text:'signin', shape:'pill', theme:'filled_black'});
+                google.accounts.id.renderButton(button, {size:'large', text:'signin', shape:'pill', theme:'filled_black'});
                 // eslint-disable-next-line no-undef
                 google.accounts.id.prompt();
             }
@@ -57,7 +57,7 @@ export function GoogleAuth(){
 
     return (
     <>
-        <div id='signInContainer'>
+        <div id='signInContainer' className='z-[1]'>
 
         </div>
     </>)

@@ -1,25 +1,25 @@
 import "../mainplus.css";
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {GoogleAuth} from "../Authentication/GoogleAuth.jsx";
+import apples from '../img/apples.png';
 
 
 export default function IndexPage(){
-    const {user} = UseAuth()
     return (
-        <div className="flex flex-col">
-            <div className='flex justify-center bg-secondary py-20'>
-                <div className="bg-base-100 p-8 rounded-md text-center">
-                    <div className='foederFont text-neutral text-7xl md:text-9xl'>
-                        Foeder
-                    </div>
+        <div className=" mx-auto grid grid-cols-12 gap-5 px-6 md:px-8">
+            <div className="col-span-12 md:col-span-3">
+                <p className="inter-mainFont font-bold text-5xl pt-8">
+                    Recipe and pantry stock-keeping
+                </p>
+                <p className="inter-mainFont text-xl pt-8">
+                    It’s easy to get started with Foeder. Just create an account by signing up with your google account.
+                </p>
+                <div className="py-8">
+                    <GoogleAuth/>
                 </div>
             </div>
-            <div className="w-1/2 mx-auto flex mt-10 justify-center bg-secondary text-secondary-content rounded-md p-8 text-center">
-                <p><WelcomeMessage user={user}/></p>
+            <div className="relative col-span-12 md:col-span-7">
+                <img className="absolute right-[-45%] top-[20%] scale-[190%] md:scale-[250%] lg:scale-[200%] z-[0]" src={apples} alt="Apples"/>
             </div>
         </div>
     )
-}
-
-function WelcomeMessage({user}){
-    return user?.name ? `Welcome ${user.name}` : "Welcome to foeder, your personal recipe and pantry keeper!"
 }
