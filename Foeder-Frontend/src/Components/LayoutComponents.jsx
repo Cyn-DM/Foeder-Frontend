@@ -9,9 +9,11 @@ export default function Root(){
     return ( 
     <>
         <AuthProvider>
-            <Header/>
-            <div className="w-full full-screen-container">
-                <Outlet />
+            <div className="h-[100vh] overflow-hidden">
+                <Header/>
+                <div className="w-full full-screen-container">
+                    <Outlet />
+                </div>
             </div>
         </AuthProvider>
     </>
