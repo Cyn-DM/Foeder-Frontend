@@ -1,6 +1,7 @@
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useEffect, useState} from "react";
 import {ContentWrapper} from "./LayoutComponents.jsx";
+import {Link} from "react-router-dom";
 
 export default function Household(){
     const {user, axiosInstance} = UseAuth();
@@ -28,6 +29,7 @@ export default function Household(){
                         Household
                     </div>
                     <HouseholdName name={"Please create or join a household."}/>
+                    <Link to="/create-household" className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create a household</Link>
                 </div>
             </ContentWrapper>
 
