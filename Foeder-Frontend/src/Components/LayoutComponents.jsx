@@ -9,9 +9,11 @@ export default function Root(){
     return ( 
     <>
         <AuthProvider>
-            <Header/>
-            <div className="w-full">
-                <Outlet />
+            <div className="h-[100vh] overflow-hidden">
+                <Header/>
+                <div className="w-full full-screen-container">
+                    <Outlet />
+                </div>
             </div>
         </AuthProvider>
     </>
@@ -23,10 +25,10 @@ export default function Root(){
 function Header(){
     const {isAuthenticated} = UseAuth();
     return (
-      <div className="navbar bg-neutral flex ">
-        <div className="navbar-start">
+      <div className="navbar bg-base0100 min-h-0 h-12">
+        <div className="navbar-start md:mr-4 ">
             <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-accent btn-sm lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -42,7 +44,7 @@ function Header(){
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              className="menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[2] mt-3 w-52 p-2 shadow">
               <li><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
               <li>
                 <a>Parent</a>
@@ -54,17 +56,17 @@ function Header(){
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <Link to="/" className='hidden sm:flex btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
+          <Link to="/" className='hidden lg:flex btn btn-sm btn-accent text-base-100 text-lg foederFont'>Foeder</Link>
         </div>
         <div className="navbar-center">
-        <Link to="/" className='sm:hidden btn btn-primary text-primary-content text-lg foederFont'>Foeder</Link>
+        <Link to="/" className='text-sm lg:hidden btn btn-accent btn-xs text-base-100 foederFont lg:text-xl'>Foeder</Link>
           <ul className="menu menu-horizontal hidden lg:flex">
-            <li className="text-neutral-content"><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
-            <li className="text-neutral-content"><Link to="" >Household</Link></li>
+            <li className="text-black inter-mainFont font-medium text-lg"><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
+            <li className="text-black inter-mainFont font-medium text-lg"><Link to="" >Household</Link></li>
           </ul>
         </div>
         <div className="navbar-end">
-          <GoogleAuth />
+
         </div>
       </div>
     )
