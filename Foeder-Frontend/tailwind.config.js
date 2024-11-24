@@ -14,12 +14,12 @@ export default {
 					  
 				"secondary": "#BABD8D",
 					  
-				"accent": "#57862E",
+				"accent": "#6D9B49",
 					  
 				"neutral": "#30321C",
 
 					  
-				"base-100": "#FFFCF2",
+				"base-100": "#F2F4EB",
 					  
 				"info": "#F1F1CB",
 		  },
