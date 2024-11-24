@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {Link} from "react-router-dom";
 
 export default function RecipeList() {
 
@@ -49,16 +50,10 @@ export default function RecipeList() {
                 </div>
             </div>
         </div>
-        <div className="flex px-4 md:px-8 gap-5 flex-wrap">
+        <div className="flex mx-auto mt-8 px-6 md:px-24 gap-5 flex-wrap">
 
-            {recipes.map((element) => (
-                <div key={element.id} className="card card-compact bg-base-100 w-96 shadow-xl">
-                    <div className="card-body items-center text-center" >
-                      <div className="card-title">
-                      {element.title}
-                      </div>
-                    </div>
-                </div>
+            {recipes.map((recipe) => (
+                <ClickableCard recipe={recipe} key={recipe.id} />
             ))}
 
 
@@ -66,4 +61,25 @@ export default function RecipeList() {
     </>
 
   )
+}
+
+const ClickableCard = ({recipe}) => {
+    return (
+        <div key={recipe.id} className="card card-compact bg-base-100 w-28 md:w-52 shadow-xl overflow-hidden">
+            <Link to={`/recipe/${recipe.id}`} className="block">
+                <figure>
+                    <img
+                        src="/src/img/food.jpg"
+                        alt="Recipe picture"/>
+                </figure>
+                <div className="card-body items-center text-center">
+                    <div className="card-title text-sm md:text-lg">
+                        {recipe.title}
+                    </div>
+                </div>
+            </Link>
+
+        </div>
+
+    )
 }
