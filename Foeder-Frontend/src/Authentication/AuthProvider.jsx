@@ -41,6 +41,7 @@ export function AuthProvider({children})
         let userInfo = jwtDecode(accessToken);
 
         return { "name" : userInfo.unique_name,
+            "id": userInfo.id,
             "email" : userInfo.email,
             "householdId" : userInfo.HouseholdId ?? undefined,
         }

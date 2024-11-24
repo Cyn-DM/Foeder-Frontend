@@ -35,8 +35,8 @@ export default function RecipeList() {
       //   </table>
       // </div>
     <>
-        <div className="relative mx-auto grid grid-cols-12 gap-5 px-4 md:px-8">
-            <div className="flex flex-col col-span-12 pt-4 px-2 md:px-16">
+        <div className="relative mx-auto flex gap-5 px-6 xl:px-96">
+            <div className="flex flex-col col-span-12 pt-4">
                 <p className="inter-mainFont font-medium text-4xl">
                     Recipes
                 </p>
@@ -50,7 +50,7 @@ export default function RecipeList() {
                 </div>
             </div>
         </div>
-        <div className="flex mx-auto mt-8 px-6 md:px-24 gap-5 flex-wrap">
+        <div className="flex mx-auto mt-8 px-6 xl:px-96 gap-5 gap-y-10 flex-wrap">
 
             {recipes.map((recipe) => (
                 <ClickableCard recipe={recipe} key={recipe.id} />
