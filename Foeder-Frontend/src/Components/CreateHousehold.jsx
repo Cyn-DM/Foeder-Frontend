@@ -1,9 +1,11 @@
 import { UseAuth } from "../Authentication/AuthProvider.jsx"
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export function CreateHousehold() {
     const { axiosInstance } = UseAuth();
     const [labelText, setLabelText] = useState("")
+    const navigate = useNavigate();
     function handleClick(){
         const input = document.getElementById("householdInput").value;
 
@@ -14,13 +16,19 @@ export function CreateHousehold() {
             setLabelText("Please enter a household name less than 50 characters.")
         } else {
             axiosInstance.post('/Household/AddHousehold', { Name: input })
-                .then(() => {
-
+                .then((response) => {
+                    if (response.status === 200){
+                        navigate('/Household');
+                    }
                 })
                 .catch((error) => {
                     if (error.response.status === 400) {
-                        const errors = error.response.data.errors.Name;
-                        setLabelText(errors.join('\n'));
+                        if (error.response.data.errors?.Name !== undefined){
+                            const errors = error.response.data.errors.Name;
+                            setLabelText(errors.join('\n'));
+                        } else {
+                            setLabelText(error.response.data);
+                        }
                     }
                 })
         }
@@ -41,7 +49,7 @@ export function CreateHousehold() {
                         <div className='label-text md:text-xl'>Household name</div>
                     </div>
                     <input type='text' placeholder='Household name' className='input input-bordered w-full max-w-xs md:input-lg' id="householdInput"/>
-                    <button onClick={handleClick} type='submit' className='btn btn-secondary btn-block  mt-6'>Submit</button>
+                    <button onClick={handleClick} type="button" className='btn btn-secondary btn-block  mt-6'>Submit</button>
                     <label className="warning-label w-full max-w-xs whitespace-pre-wrap">{labelText}</label>
                 </div>
             </div>
