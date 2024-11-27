@@ -1,0 +1,89 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/Authentication/GoogleAuth.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=1cc70104"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Authentication/GoogleAuth.jsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s = $RefreshSig$();
+import __vite__cjsImport3_react from "/node_modules/.vite/deps/react.js?v=1cc70104"; const useEffect = __vite__cjsImport3_react["useEffect"]; const useState = __vite__cjsImport3_react["useState"];
+import axios from "/node_modules/.vite/deps/axios.js?v=1cc70104";
+import { UseAuth } from "/src/Authentication/AuthProvider.jsx?t=1732730762105";
+export function GoogleAuth() {
+  _s();
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const { isAuthenticated, handleCredentialResponse } = UseAuth();
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.onload = () => {
+      setScriptLoaded(true);
+    };
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+  useEffect(() => {
+    if (scriptLoaded) {
+      window.google.accounts.id.initialize({
+        client_id: "367820938286-u0u38i2711n088ttaikh6s6td31pegjd.apps.googleusercontent.com",
+        callback: handleCredentialResponse,
+        ux_mode: "popup"
+      });
+      const container = document.getElementById("signInContainer");
+      if (!isAuthenticated) {
+        const element = document.createElement("div");
+        element.setAttribute("id", "signInDiv");
+        const button = container.appendChild(element);
+        google.accounts.id.renderButton(button, { size: "large", text: "signin", shape: "pill", theme: "filled_black" });
+        google.accounts.id.prompt();
+      }
+      if (isAuthenticated) {
+        const button = document.getElementById("signInDiv");
+        if (button) {
+          container.removeChild(button);
+        }
+      }
+    }
+  }, [scriptLoaded, isAuthenticated]);
+  return /* @__PURE__ */ jsxDEV(Fragment, { children: /* @__PURE__ */ jsxDEV("div", { id: "signInContainer", className: "z-[1]" }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Authentication/GoogleAuth.jsx",
+    lineNumber: 60,
+    columnNumber: 9
+  }, this) }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Authentication/GoogleAuth.jsx",
+    lineNumber: 59,
+    columnNumber: 5
+  }, this);
+}
+_s(GoogleAuth, "j4LTDMTacqohWPYZbBdhKurcv4w=");
+_c = GoogleAuth;
+var _c;
+$RefreshReg$(_c, "GoogleAuth");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Authentication/GoogleAuth.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Authentication/GoogleAuth.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBMERJLG1CQUNJLGNBREo7MkJBMURKO0FBQW9CQSxvQkFBZ0IsT0FBTztBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUMzQyxPQUFRQyxXQUFZO0FBQ3BCLFNBQVFDLGVBQWM7QUFFZixnQkFBU0MsYUFBWTtBQUFBQyxLQUFBO0FBQ3hCLFFBQU0sQ0FBQ0MsY0FBY0MsZUFBZSxJQUFJTixTQUFTLEtBQUs7QUFDdEQsUUFBTSxFQUFDTyxpQkFBaUJDLHlCQUF3QixJQUFJTixRQUFRO0FBRzVETyxZQUFVLE1BQU07QUFDWixVQUFNQyxTQUFTQyxTQUFTQyxjQUFjLFFBQVE7QUFFOUNGLFdBQU9HLE1BQU07QUFDYkgsV0FBT0ksUUFBUTtBQUNmSixXQUFPSyxTQUFTLE1BQU07QUFDbEJULHNCQUFnQixJQUFJO0FBQUEsSUFDeEI7QUFDQUssYUFBU0ssS0FBS0MsWUFBWVAsTUFBTTtBQUVoQyxXQUFPLE1BQU07QUFDVEMsZUFBU0ssS0FBS0UsWUFBWVIsTUFBTTtBQUFBLElBQ3BDO0FBQUEsRUFDSixHQUFHLEVBQUU7QUFFTEQsWUFBVSxNQUFNO0FBQ1osUUFBR0osY0FBYTtBQUNaYyxhQUFPQyxPQUFPQyxTQUFTQyxHQUFHQyxXQUFXO0FBQUEsUUFDakNDLFdBQVc7QUFBQSxRQUNYQyxVQUFVakI7QUFBQUEsUUFDVmtCLFNBQVM7QUFBQSxNQUNiLENBQUM7QUFFRCxZQUFNQyxZQUFZaEIsU0FBU2lCLGVBQWUsaUJBQWlCO0FBRTNELFVBQUksQ0FBQ3JCLGlCQUFnQjtBQUNqQixjQUFNc0IsVUFBVWxCLFNBQVNDLGNBQWMsS0FBSztBQUM1Q2lCLGdCQUFRQyxhQUFhLE1BQU0sV0FBVztBQUN0QyxjQUFNQyxTQUFTSixVQUFVVixZQUFZWSxPQUFPO0FBRTVDVCxlQUFPQyxTQUFTQyxHQUFHVSxhQUFhRCxRQUFRLEVBQUNFLE1BQUssU0FBU0MsTUFBSyxVQUFVQyxPQUFNLFFBQVFDLE9BQU0sZUFBYyxDQUFDO0FBRXpHaEIsZUFBT0MsU0FBU0MsR0FBR2UsT0FBTztBQUFBLE1BQzlCO0FBRUEsVUFBSTlCLGlCQUFnQjtBQUNoQixjQUFNd0IsU0FBU3BCLFNBQVNpQixlQUFlLFdBQVc7QUFDbEQsWUFBSUcsUUFBTztBQUNQSixvQkFBVVQsWUFBWWEsTUFBTTtBQUFBLFFBQ2hDO0FBQUEsTUFDSjtBQUFBLElBQ0o7QUFBQSxFQUNKLEdBQUcsQ0FBQzFCLGNBQWNFLGVBQWUsQ0FBQztBQU1sQyxTQUNBLG1DQUNJLGlDQUFDLFNBQUksSUFBRyxtQkFBa0IsV0FBVSxXQUFwQztBQUFBO0FBQUE7QUFBQTtBQUFBLFNBRUEsS0FISjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBSUE7QUFDSjtBQUFDSCxHQTNEZUQsWUFBVTtBQUFBbUMsS0FBVm5DO0FBQVUsSUFBQW1DO0FBQUFDLGFBQUFELElBQUEiLCJuYW1lcyI6WyJ1c2VTdGF0ZSIsImF4aW9zIiwiVXNlQXV0aCIsIkdvb2dsZUF1dGgiLCJfcyIsInNjcmlwdExvYWRlZCIsInNldFNjcmlwdExvYWRlZCIsImlzQXV0aGVudGljYXRlZCIsImhhbmRsZUNyZWRlbnRpYWxSZXNwb25zZSIsInVzZUVmZmVjdCIsInNjcmlwdCIsImRvY3VtZW50IiwiY3JlYXRlRWxlbWVudCIsInNyYyIsImFzeW5jIiwib25sb2FkIiwiYm9keSIsImFwcGVuZENoaWxkIiwicmVtb3ZlQ2hpbGQiLCJ3aW5kb3ciLCJnb29nbGUiLCJhY2NvdW50cyIsImlkIiwiaW5pdGlhbGl6ZSIsImNsaWVudF9pZCIsImNhbGxiYWNrIiwidXhfbW9kZSIsImNvbnRhaW5lciIsImdldEVsZW1lbnRCeUlkIiwiZWxlbWVudCIsInNldEF0dHJpYnV0ZSIsImJ1dHRvbiIsInJlbmRlckJ1dHRvbiIsInNpemUiLCJ0ZXh0Iiwic2hhcGUiLCJ0aGVtZSIsInByb21wdCIsIl9jIiwiJFJlZnJlc2hSZWckIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIkdvb2dsZUF1dGguanN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tIFwicmVhY3RcIjtcclxuaW1wb3J0ICBheGlvcyAgZnJvbSBcImF4aW9zXCI7XHJcbmltcG9ydCB7VXNlQXV0aH0gZnJvbSBcIi4vQXV0aFByb3ZpZGVyLmpzeFwiO1xyXG5cclxuZXhwb3J0IGZ1bmN0aW9uIEdvb2dsZUF1dGgoKXtcclxuICAgIGNvbnN0IFtzY3JpcHRMb2FkZWQsIHNldFNjcmlwdExvYWRlZF0gPSB1c2VTdGF0ZShmYWxzZSk7XHJcbiAgICBjb25zdCB7aXNBdXRoZW50aWNhdGVkLCBoYW5kbGVDcmVkZW50aWFsUmVzcG9uc2V9ID0gVXNlQXV0aCgpO1xyXG5cclxuXHJcbiAgICB1c2VFZmZlY3QoKCkgPT4ge1xyXG4gICAgICAgIGNvbnN0IHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3NjcmlwdCcpO1xyXG5cclxuICAgICAgICBzY3JpcHQuc3JjID0gJ2h0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9nc2kvY2xpZW50JztcclxuICAgICAgICBzY3JpcHQuYXN5bmMgPSB0cnVlO1xyXG4gICAgICAgIHNjcmlwdC5vbmxvYWQgPSAoKSA9PiB7XHJcbiAgICAgICAgICAgIHNldFNjcmlwdExvYWRlZCh0cnVlKTtcclxuICAgICAgICB9O1xyXG4gICAgICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQoc2NyaXB0KTtcclxuXHJcbiAgICAgICAgcmV0dXJuICgpID0+IHtcclxuICAgICAgICAgICAgZG9jdW1lbnQuYm9keS5yZW1vdmVDaGlsZChzY3JpcHQpO1xyXG4gICAgICAgIH1cclxuICAgIH0sIFtdKTtcclxuICAgIFxyXG4gICAgdXNlRWZmZWN0KCgpID0+IHtcclxuICAgICAgICBpZihzY3JpcHRMb2FkZWQpe1xyXG4gICAgICAgICAgICB3aW5kb3cuZ29vZ2xlLmFjY291bnRzLmlkLmluaXRpYWxpemUoe1xyXG4gICAgICAgICAgICAgICAgY2xpZW50X2lkOiAnMzY3ODIwOTM4Mjg2LXUwdTM4aTI3MTFuMDg4dHRhaWtoNnM2dGQzMXBlZ2pkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tJyxcclxuICAgICAgICAgICAgICAgIGNhbGxiYWNrOiBoYW5kbGVDcmVkZW50aWFsUmVzcG9uc2UsXHJcbiAgICAgICAgICAgICAgICB1eF9tb2RlOiAncG9wdXAnLFxyXG4gICAgICAgICAgICB9KTtcclxuXHJcbiAgICAgICAgICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzaWduSW5Db250YWluZXInKTtcclxuXHJcbiAgICAgICAgICAgIGlmICghaXNBdXRoZW50aWNhdGVkKXtcclxuICAgICAgICAgICAgICAgIGNvbnN0IGVsZW1lbnQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcclxuICAgICAgICAgICAgICAgIGVsZW1lbnQuc2V0QXR0cmlidXRlKCdpZCcsICdzaWduSW5EaXYnKTtcclxuICAgICAgICAgICAgICAgIGNvbnN0IGJ1dHRvbiA9IGNvbnRhaW5lci5hcHBlbmRDaGlsZChlbGVtZW50KTtcclxuICAgICAgICAgICAgICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBuby11bmRlZlxyXG4gICAgICAgICAgICAgICAgZ29vZ2xlLmFjY291bnRzLmlkLnJlbmRlckJ1dHRvbihidXR0b24sIHtzaXplOidsYXJnZScsIHRleHQ6J3NpZ25pbicsIHNoYXBlOidwaWxsJywgdGhlbWU6J2ZpbGxlZF9ibGFjayd9KTtcclxuICAgICAgICAgICAgICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBuby11bmRlZlxyXG4gICAgICAgICAgICAgICAgZ29vZ2xlLmFjY291bnRzLmlkLnByb21wdCgpO1xyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICBpZiAoaXNBdXRoZW50aWNhdGVkKXtcclxuICAgICAgICAgICAgICAgIGNvbnN0IGJ1dHRvbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzaWduSW5EaXYnKTtcclxuICAgICAgICAgICAgICAgIGlmIChidXR0b24pe1xyXG4gICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lci5yZW1vdmVDaGlsZChidXR0b24pO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgfSwgW3NjcmlwdExvYWRlZCwgaXNBdXRoZW50aWNhdGVkXSk7XHJcblxyXG5cclxuXHJcblxyXG5cclxuICAgIHJldHVybiAoXHJcbiAgICA8PlxyXG4gICAgICAgIDxkaXYgaWQ9J3NpZ25JbkNvbnRhaW5lcicgY2xhc3NOYW1lPSd6LVsxXSc+XHJcblxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgPC8+KVxyXG59XHJcblxyXG5cclxuXHJcbiJdLCJmaWxlIjoiQzovRm9udHlzIHJlcG9zL0ZvZWRlci9Gb2VkZXIgRnJvbnRlbmQvRm9lZGVyLUZyb250ZW5kL0ZvZWRlci1Gcm9udGVuZC9zcmMvQXV0aGVudGljYXRpb24vR29vZ2xlQXV0aC5qc3gifQ==

@@ -1,0 +1,6 @@
+import {
+  require_react
+} from "/node_modules/.vite/deps/chunk-DRWLMN53.js?v=1cc70104";
+import "/node_modules/.vite/deps/chunk-G3PMV62Z.js?v=1cc70104";
+export default require_react();
+//# sourceMappingURL=react.js.map

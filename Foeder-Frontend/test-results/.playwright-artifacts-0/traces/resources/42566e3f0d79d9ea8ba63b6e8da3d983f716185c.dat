@@ -1,0 +1,256 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/Components/LayoutComponents.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=1cc70104"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+import { Link, Outlet } from "/node_modules/.vite/deps/react-router-dom.js?v=1cc70104";
+import "/src/mainplus.css?t=1732717687759";
+import { GoogleAuth } from "/src/Authentication/GoogleAuth.jsx?t=1732730762105";
+import { AuthProvider, UseAuth } from "/src/Authentication/AuthProvider.jsx?t=1732730762105";
+import { AuthLink } from "/src/Routing/AuthLink.jsx";
+export default function Root() {
+  return /* @__PURE__ */ jsxDEV(Fragment, { children: /* @__PURE__ */ jsxDEV(AuthProvider, { children: /* @__PURE__ */ jsxDEV("div", { className: "h-[100vh] overflow-hidden", children: [
+    /* @__PURE__ */ jsxDEV(Header, {}, void 0, false, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 13,
+      columnNumber: 17
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "w-full full-screen-container", children: /* @__PURE__ */ jsxDEV(Outlet, {}, void 0, false, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 15,
+      columnNumber: 21
+    }, this) }, void 0, false, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 14,
+      columnNumber: 17
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+    lineNumber: 12,
+    columnNumber: 13
+  }, this) }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+    lineNumber: 11,
+    columnNumber: 9
+  }, this) }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+    lineNumber: 10,
+    columnNumber: 5
+  }, this);
+}
+_c = Root;
+function Header() {
+  const { isAuthenticated } = UseAuth();
+  return /* @__PURE__ */ jsxDEV("div", { className: "navbar bg-base0100 min-h-0 h-12", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "navbar-start md:mr-4 ", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "dropdown", children: [
+        /* @__PURE__ */ jsxDEV("div", { tabIndex: 0, role: "button", className: "btn btn-accent btn-sm lg:hidden", children: /* @__PURE__ */ jsxDEV(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            className: "h-5 w-5",
+            fill: "none",
+            viewBox: "0 0 24 24",
+            stroke: "#DBD6CA",
+            children: /* @__PURE__ */ jsxDEV(
+              "path",
+              {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: "2",
+                d: "M4 6h16M4 12h8m-8 6h16"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 38,
+                columnNumber: 17
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+            lineNumber: 32,
+            columnNumber: 15
+          },
+          this
+        ) }, void 0, false, {
+          fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+          lineNumber: 31,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDEV(
+          "ul",
+          {
+            tabIndex: 0,
+            className: "menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[2] mt-3 w-52 p-2 shadow",
+            children: [
+              /* @__PURE__ */ jsxDEV("li", { children: /* @__PURE__ */ jsxDEV(AuthLink, { url: "./recipes", isAuthenticated, name: "Recipes" }, void 0, false, {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 48,
+                columnNumber: 19
+              }, this) }, void 0, false, {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 48,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ jsxDEV("li", { children: [
+                /* @__PURE__ */ jsxDEV("a", { children: "Parent" }, void 0, false, {
+                  fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                  lineNumber: 50,
+                  columnNumber: 17
+                }, this),
+                /* @__PURE__ */ jsxDEV("ul", { className: "p-2", children: [
+                  /* @__PURE__ */ jsxDEV("li", { children: /* @__PURE__ */ jsxDEV("a", { children: "Submenu 1" }, void 0, false, {
+                    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                    lineNumber: 52,
+                    columnNumber: 23
+                  }, this) }, void 0, false, {
+                    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                    lineNumber: 52,
+                    columnNumber: 19
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("li", { children: /* @__PURE__ */ jsxDEV("a", { children: "Submenu 2" }, void 0, false, {
+                    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                    lineNumber: 53,
+                    columnNumber: 23
+                  }, this) }, void 0, false, {
+                    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                    lineNumber: 53,
+                    columnNumber: 19
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                  lineNumber: 51,
+                  columnNumber: 17
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 49,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ jsxDEV("li", { children: /* @__PURE__ */ jsxDEV("a", { children: "Item 3" }, void 0, false, {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 56,
+                columnNumber: 19
+              }, this) }, void 0, false, {
+                fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+                lineNumber: 56,
+                columnNumber: 15
+              }, this)
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+            lineNumber: 45,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+        lineNumber: 30,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV(Link, { to: "/", className: "hidden lg:flex btn btn-sm btn-accent text-base-100 text-lg foederFont", children: "Foeder" }, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+        lineNumber: 59,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 29,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "navbar-center", children: [
+      /* @__PURE__ */ jsxDEV(Link, { to: "/", className: "text-sm lg:hidden btn btn-accent btn-xs text-base-100 foederFont lg:text-xl", children: "Foeder" }, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+        lineNumber: 62,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("ul", { className: "menu menu-horizontal hidden lg:flex", children: [
+        /* @__PURE__ */ jsxDEV("li", { className: "text-black inter-mainFont font-medium text-lg", children: /* @__PURE__ */ jsxDEV(AuthLink, { url: "./recipes", isAuthenticated, name: "Recipes" }, void 0, false, {
+          fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+          lineNumber: 64,
+          columnNumber: 75
+        }, this) }, void 0, false, {
+          fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+          lineNumber: 64,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDEV("li", { className: "text-black inter-mainFont font-medium text-lg", children: /* @__PURE__ */ jsxDEV(Link, { to: "./household", children: "Household" }, void 0, false, {
+          fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+          lineNumber: 65,
+          columnNumber: 75
+        }, this) }, void 0, false, {
+          fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+          lineNumber: 65,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+        lineNumber: 63,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 61,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "navbar-end" }, void 0, false, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+      lineNumber: 68,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+    lineNumber: 28,
+    columnNumber: 5
+  }, this);
+}
+_c2 = Header;
+export function ContentWrapper({ children }) {
+  return /* @__PURE__ */ jsxDEV("div", { className: "mx-auto flex gap-5 px-6 xl:px-96 mt-8", children }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx",
+    lineNumber: 77,
+    columnNumber: 5
+  }, this);
+}
+_c3 = ContentWrapper;
+var _c, _c2, _c3;
+$RefreshReg$(_c, "Root");
+$RefreshReg$(_c2, "Header");
+$RefreshReg$(_c3, "ContentWrapper");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/LayoutComponents.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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dXRoIiwiQXV0aExpbmsiLCJSb290IiwiX2MiLCJIZWFkZXIiLCJpc0F1dGhlbnRpY2F0ZWQiLCJfYzIiLCJDb250ZW50V3JhcHBlciIsImNoaWxkcmVuIiwiX2MzIiwiJFJlZnJlc2hSZWckIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIkxheW91dENvbXBvbmVudHMuanN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7TGluaywgT3V0bGV0fSBmcm9tIFwicmVhY3Qtcm91dGVyLWRvbVwiO1xyXG5pbXBvcnQgJy4uL21haW5wbHVzLmNzcyc7XHJcbmltcG9ydCB7R29vZ2xlQXV0aH0gZnJvbSBcIi4uL0F1dGhlbnRpY2F0aW9uL0dvb2dsZUF1dGhcIlxyXG5pbXBvcnQge0F1dGhQcm92aWRlciwgVXNlQXV0aH0gZnJvbSBcIi4uL0F1dGhlbnRpY2F0aW9uL0F1dGhQcm92aWRlci5qc3hcIjtcclxuaW1wb3J0IHtBdXRoTGlua30gZnJvbSBcIi4uL1JvdXRpbmcvQXV0aExpbmsuanN4XCI7XHJcblxyXG5cclxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gUm9vdCgpe1xyXG4gICAgcmV0dXJuICggXHJcbiAgICA8PlxyXG4gICAgICAgIDxBdXRoUHJvdmlkZXI+XHJcbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiaC1bMTAwdmhdIG92ZXJmbG93LWhpZGRlblwiPlxyXG4gICAgICAgICAgICAgICAgPEhlYWRlci8+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInctZnVsbCBmdWxsLXNjcmVlbi1jb250YWluZXJcIj5cclxuICAgICAgICAgICAgICAgICAgICA8T3V0bGV0IC8+XHJcbiAgICAgICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgPC9BdXRoUHJvdmlkZXI+XHJcbiAgICA8Lz5cclxuICAgIFxyXG5cclxuICAgIClcclxufVxyXG5cclxuZnVuY3Rpb24gSGVhZGVyKCl7XHJcbiAgICBjb25zdCB7aXNBdXRoZW50aWNhdGVkfSA9IFVzZUF1dGgoKTtcclxuICAgIHJldHVybiAoXHJcbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwibmF2YmFyIGJnLWJhc2UwMTAwIG1pbi1oLTAgaC0xMlwiPlxyXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibmF2YmFyLXN0YXJ0IG1kOm1yLTQgXCI+XHJcbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZHJvcGRvd25cIj5cclxuICAgICAgICAgICAgPGRpdiB0YWJJbmRleD17MH0gcm9sZT1cImJ1dHRvblwiIGNsYXNzTmFtZT1cImJ0biBidG4tYWNjZW50IGJ0bi1zbSBsZzpoaWRkZW5cIj5cclxuICAgICAgICAgICAgICA8c3ZnXHJcbiAgICAgICAgICAgICAgICB4bWxucz1cImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnXCJcclxuICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImgtNSB3LTVcIlxyXG4gICAgICAgICAgICAgICAgZmlsbD1cIm5vbmVcIlxyXG4gICAgICAgICAgICAgICAgdmlld0JveD1cIjAgMCAyNCAyNFwiXHJcbiAgICAgICAgICAgICAgICBzdHJva2U9XCIjREJENkNBXCI+XHJcbiAgICAgICAgICAgICAgICA8cGF0aFxyXG4gICAgICAgICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxyXG4gICAgICAgICAgICAgICAgICBzdHJva2VMaW5lam9pbj1cInJvdW5kXCJcclxuICAgICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGg9XCIyXCJcclxuICAgICAgICAgICAgICAgICAgZD1cIk00IDZoMTZNNCAxMmg4bS04IDZoMTZcIiAvPlxyXG4gICAgICAgICAgICAgIDwvc3ZnPlxyXG4gICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICAgICAgPHVsXHJcbiAgICAgICAgICAgICAgdGFiSW5kZXg9ezB9XHJcbiAgICAgICAgICAgICAgY2xhc3NOYW1lPVwibWVudSBtZW51LXNtIGRyb3Bkb3duLWNvbnRlbnQgYmctbmV1dHJhbCB0ZXh0LW5ldXRyYWwtY29udGVudCByb3VuZGVkLWJveCB6LVsyXSBtdC0zIHctNTIgcC0yIHNoYWRvd1wiPlxyXG4gICAgICAgICAgICAgIDxsaT48QXV0aExpbmsgdXJsPXsnLi9yZWNpcGVzJ30gaXNBdXRoZW50aWNhdGVkPXtpc0F1dGhlbnRpY2F0ZWR9IG5hbWU9eydSZWNpcGVzJ30gLz48L2xpPlxyXG4gICAgICAgICAgICAgIDxsaT5cclxuICAgICAgICAgICAgICAgIDxhPlBhcmVudDwvYT5cclxuICAgICAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9XCJwLTJcIj5cclxuICAgICAgICAgICAgICAgICAgPGxpPjxhPlN1Ym1lbnUgMTwvYT48L2xpPlxyXG4gICAgICAgICAgICAgICAgICA8bGk+PGE+U3VibWVudSAyPC9hPjwvbGk+XHJcbiAgICAgICAgICAgICAgICA8L3VsPlxyXG4gICAgICAgICAgICAgIDwvbGk+XHJcbiAgICAgICAgICAgICAgPGxpPjxhPkl0ZW0gMzwvYT48L2xpPlxyXG4gICAgICAgICAgICA8L3VsPlxyXG4gICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICA8TGluayB0bz1cIi9cIiBjbGFzc05hbWU9J2hpZGRlbiBsZzpmbGV4IGJ0biBidG4tc20gYnRuLWFjY2VudCB0ZXh0LWJhc2UtMTAwIHRleHQtbGcgZm9lZGVyRm9udCc+Rm9lZGVyPC9MaW5rPlxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibmF2YmFyLWNlbnRlclwiPlxyXG4gICAgICAgIDxMaW5rIHRvPVwiL1wiIGNsYXNzTmFtZT0ndGV4dC1zbSBsZzpoaWRkZW4gYnRuIGJ0bi1hY2NlbnQgYnRuLXhzIHRleHQtYmFzZS0xMDAgZm9lZGVyRm9udCBsZzp0ZXh0LXhsJz5Gb2VkZXI8L0xpbms+XHJcbiAgICAgICAgICA8dWwgY2xhc3NOYW1lPVwibWVudSBtZW51LWhvcml6b250YWwgaGlkZGVuIGxnOmZsZXhcIj5cclxuICAgICAgICAgICAgPGxpIGNsYXNzTmFtZT1cInRleHQtYmxhY2sgaW50ZXItbWFpbkZvbnQgZm9udC1tZWRpdW0gdGV4dC1sZ1wiPjxBdXRoTGluayB1cmw9eycuL3JlY2lwZXMnfSBpc0F1dGhlbnRpY2F0ZWQ9e2lzQXV0aGVudGljYXRlZH0gbmFtZT17J1JlY2lwZXMnfSAvPjwvbGk+XHJcbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9XCJ0ZXh0LWJsYWNrIGludGVyLW1haW5Gb250IGZvbnQtbWVkaXVtIHRleHQtbGdcIj48TGluayB0bz1cIi4vaG91c2Vob2xkXCIgPkhvdXNlaG9sZDwvTGluaz48L2xpPlxyXG4gICAgICAgICAgPC91bD5cclxuICAgICAgICA8L2Rpdj5cclxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5hdmJhci1lbmRcIj5cclxuXHJcbiAgICAgICAgPC9kaXY+XHJcbiAgICAgIDwvZGl2PlxyXG4gICAgKVxyXG4gIH1cclxuXHJcbiAgZXhwb3J0IGZ1bmN0aW9uIENvbnRlbnRXcmFwcGVyKHtjaGlsZHJlbn0pIHtcclxuICAgIHJldHVybiAoXHJcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJteC1hdXRvIGZsZXggZ2FwLTUgcHgtNiB4bDpweC05NiBtdC04XCI+XHJcbiAgICAgICAgICAgIHtjaGlsZHJlbn1cclxuICAgICAgICA8L2Rpdj5cclxuICAgIClcclxuICB9XHJcbiJdLCJmaWxlIjoiQzovRm9udHlzIHJlcG9zL0ZvZWRlci9Gb2VkZXIgRnJvbnRlbmQvRm9lZGVyLUZyb250ZW5kL0ZvZWRlci1Gcm9udGVuZC9zcmMvQ29tcG9uZW50cy9MYXlvdXRDb21wb25lbnRzLmpzeCJ9

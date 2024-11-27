@@ -1,0 +1,95 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/Components/Index.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=1cc70104"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+import "/src/mainplus.css?t=1732717687759";
+import { GoogleAuth } from "/src/Authentication/GoogleAuth.jsx?t=1732730762105";
+import apples from "/src/img/apples.png?import";
+export default function IndexPage() {
+  return /* @__PURE__ */ jsxDEV(Fragment, { children: /* @__PURE__ */ jsxDEV("div", { className: "relative overflow-hidden h-[100vh]", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: " mx-auto grid grid-cols-12 gap-5 px-6 md:px-8", children: /* @__PURE__ */ jsxDEV("div", { className: "col-span-12 md:col-span-3 z-[1] ", children: [
+      /* @__PURE__ */ jsxDEV("p", { className: "inter-mainFont font-bold text-5xl pt-8", children: "Recipe and pantry stock-keeping" }, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+        lineNumber: 12,
+        columnNumber: 25
+      }, this),
+      /* @__PURE__ */ jsxDEV("p", { className: "inter-mainFont text-xl pt-8", children: "It’s easy to get started with Foeder. Just create an account by signing up with your google account." }, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+        lineNumber: 15,
+        columnNumber: 25
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "py-8", children: /* @__PURE__ */ jsxDEV(GoogleAuth, {}, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+        lineNumber: 20,
+        columnNumber: 29
+      }, this) }, void 0, false, {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+        lineNumber: 19,
+        columnNumber: 25
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+      lineNumber: 11,
+      columnNumber: 21
+    }, this) }, void 0, false, {
+      fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+      lineNumber: 10,
+      columnNumber: 17
+    }, this),
+    /* @__PURE__ */ jsxDEV(
+      "img",
+      {
+        className: "hidden md:flex absolute apples-img",
+        src: apples,
+        alt: "Apples"
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+        lineNumber: 24,
+        columnNumber: 17
+      },
+      this
+    )
+  ] }, void 0, true, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+    lineNumber: 9,
+    columnNumber: 13
+  }, this) }, void 0, false, {
+    fileName: "C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx",
+    lineNumber: 8,
+    columnNumber: 5
+  }, this);
+}
+_c = IndexPage;
+var _c;
+$RefreshReg$(_c, "IndexPage");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Fontys repos/Foeder/Foeder Frontend/Foeder-Frontend/Foeder-Frontend/src/Components/Index.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBT1EsbUJBSWdCLGNBSmhCO0FBUFIsT0FBTyxvQkFBaUI7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDeEIsU0FBUUEsa0JBQWlCO0FBQ3pCLE9BQU9DLFlBQVk7QUFHbkIsd0JBQXdCQyxZQUFXO0FBQy9CLFNBQ0ksbUNBQ0ksaUNBQUMsU0FBSSxXQUFVLHNDQUNYO0FBQUEsMkJBQUMsU0FBSSxXQUFVLGlEQUNYLGlDQUFDLFNBQUksV0FBVSxvQ0FDWDtBQUFBLDZCQUFDLE9BQUUsV0FBVSwwQ0FBeUMsK0NBQXREO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFFQTtBQUFBLE1BQ0EsdUJBQUMsT0FBRSxXQUFVLCtCQUE4QixvSEFBM0M7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUdBO0FBQUEsTUFDQSx1QkFBQyxTQUFJLFdBQVUsUUFDWCxpQ0FBQyxnQkFBRDtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBQVcsS0FEZjtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBRUE7QUFBQSxTQVZKO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FXQSxLQVpKO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FhQTtBQUFBLElBQ0E7QUFBQSxNQUFDO0FBQUE7QUFBQSxRQUFJLFdBQVU7QUFBQSxRQUNWLEtBQUtEO0FBQUFBLFFBQ0wsS0FBSTtBQUFBO0FBQUEsTUFGVDtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsSUFFaUI7QUFBQSxPQWpCckI7QUFBQTtBQUFBO0FBQUE7QUFBQSxTQWtCQSxLQW5CSjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBb0JBO0FBR1I7QUFBQ0UsS0F6QnVCRDtBQUFTLElBQUFDO0FBQUFDLGFBQUFELElBQUEiLCJuYW1lcyI6WyJHb29nbGVBdXRoIiwiYXBwbGVzIiwiSW5kZXhQYWdlIiwiX2MiLCIkUmVmcmVzaFJlZyQiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiSW5kZXguanN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBcIi4uL21haW5wbHVzLmNzc1wiO1xyXG5pbXBvcnQge0dvb2dsZUF1dGh9IGZyb20gXCIuLi9BdXRoZW50aWNhdGlvbi9Hb29nbGVBdXRoLmpzeFwiO1xyXG5pbXBvcnQgYXBwbGVzIGZyb20gJy4uL2ltZy9hcHBsZXMucG5nJztcclxuXHJcblxyXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBJbmRleFBhZ2UoKXtcclxuICAgIHJldHVybiAoXHJcbiAgICAgICAgPD5cclxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJyZWxhdGl2ZSBvdmVyZmxvdy1oaWRkZW4gaC1bMTAwdmhdXCI+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIiBteC1hdXRvIGdyaWQgZ3JpZC1jb2xzLTEyIGdhcC01IHB4LTYgbWQ6cHgtOFwiPlxyXG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sLXNwYW4tMTIgbWQ6Y29sLXNwYW4tMyB6LVsxXSBcIj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiaW50ZXItbWFpbkZvbnQgZm9udC1ib2xkIHRleHQtNXhsIHB0LThcIj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlY2lwZSBhbmQgcGFudHJ5IHN0b2NrLWtlZXBpbmdcclxuICAgICAgICAgICAgICAgICAgICAgICAgPC9wPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJpbnRlci1tYWluRm9udCB0ZXh0LXhsIHB0LThcIj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIEl04oCZcyBlYXN5IHRvIGdldCBzdGFydGVkIHdpdGggRm9lZGVyLiBKdXN0IGNyZWF0ZSBhbiBhY2NvdW50IGJ5IHNpZ25pbmcgdXAgd2l0aCB5b3VyIGdvb2dsZVxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYWNjb3VudC5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC9wPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInB5LThcIj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxHb29nbGVBdXRoLz5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICAgICAgICAgIDxpbWcgY2xhc3NOYW1lPVwiaGlkZGVuIG1kOmZsZXggYWJzb2x1dGUgYXBwbGVzLWltZ1wiXHJcbiAgICAgICAgICAgICAgICAgICAgIHNyYz17YXBwbGVzfVxyXG4gICAgICAgICAgICAgICAgICAgICBhbHQ9XCJBcHBsZXNcIi8+XHJcbiAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgIDwvPlxyXG5cclxuICAgIClcclxufVxyXG4iXSwiZmlsZSI6IkM6L0ZvbnR5cyByZXBvcy9Gb2VkZXIvRm9lZGVyIEZyb250ZW5kL0ZvZWRlci1Gcm9udGVuZC9Gb2VkZXItRnJvbnRlbmQvc3JjL0NvbXBvbmVudHMvSW5kZXguanN4In0=
