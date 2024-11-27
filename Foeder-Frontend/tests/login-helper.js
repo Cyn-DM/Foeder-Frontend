@@ -2,7 +2,14 @@ export const login = async (page, foederLoginEmail, foederLoginPassword) => {
     await page.goto('https://localhost:5173/');
     await page.waitForTimeout(2000);
     const page1Promise = page.waitForEvent('popup', {});
-    await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
+    const lang = await page.locator('html').getAttribute('lang');
+
+    if (lang === 'nl') {
+        await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
+    } else {
+        await page.locator('iframe[title="Sign in with Google Button"]').contentFrame().getByRole('button').click();
+    }
+
     await page.waitForLoadState('networkidle');
     const page1 = await page1Promise;
     await page1.getByLabel('Email or phone').click();
