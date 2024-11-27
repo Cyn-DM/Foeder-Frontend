@@ -187,3 +187,13 @@ secrets.env
 Foeder-Frontend/certs/
 
 Foeder-Frontend/README.Docker.md
+
+Foeder-Frontend/playwright-report/trace/
+
+Foeder-Frontend/playwright-report/data/
+
+Foeder-Frontend/test-results/login-With-stealth-plugin-add-household-chromium/
+
+Foeder-Frontend/test-results/login-With-stealth-plugin-login-chromium/trace.zip
+
+Foeder-Frontend/test-results/login-With-stealth-plugin-view-recipes-chromium/trace.zip
