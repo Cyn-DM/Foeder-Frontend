@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test';
 import dotenv from 'dotenv';
 import {chromium} from 'playwright-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import {login} from "./login-helper.js";
+import {login, loginFoeder} from "./login-helper.js";
 
 dotenv.config({path: './secrets.env'});
 
@@ -33,12 +33,13 @@ test.describe("With stealth plugin", () => {
     test('add-household', async () => {
         await chromium.launch({headless: true}).then(async browser => {
 
-            const page = await browser.newPage()
-
-            await login(page, foederLoginEmail, foederLoginPassword);
+            const context = await browser.newContext({storageState: 'auth.json'});
+            const page = await context.newPage();
+            await loginFoeder(page, foederLoginPassword);
 
             await page.waitForTimeout(2000);
             await page.getByRole('link', {name: 'Household'}).click();
+            await page.waitForTimeout(2000);
             await page.getByRole('link', {name: 'Create a household'}).click();
             await page.getByPlaceholder('Household name').click();
             await page.getByPlaceholder('Household name').fill('Test');
@@ -52,9 +53,11 @@ test.describe("With stealth plugin", () => {
     test('view-recipes', async () => {
 
         await chromium.launch({headless: true}).then(async browser => {
-            const page = await browser.newPage()
 
-            await login(page, foederLoginEmail, foederLoginPassword);
+            const context = await browser.newContext({storageState: 'auth.json'});
+            const page = await context.newPage();
+
+            await loginFoeder(page, foederLoginPassword);
 
             await page.waitForTimeout(3000);
             await page.getByRole('link', {name: 'Recipes'}).click();
@@ -64,6 +67,36 @@ test.describe("With stealth plugin", () => {
 
         })
     })
+
+   /* test('manual-test-login', async () => {
+        await chromium.launch({headless: false}).then(async browser => {
+            const context = await browser.newContext();
+            const page = await context.newPage();
+        await page.goto('https://localhost:5173/');
+        await page.waitForTimeout(2000);
+        const page1Promise = page.waitForEvent('popup');
+
+
+            await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
+
+
+        await page.waitForLoadState('networkidle');
+        const page1 = await page1Promise;
+        await page1.getByLabel('Email or phone').click();
+        await page1.getByLabel('Email or phone').fill(foederLoginEmail);
+        await page1.getByRole('button', { name: 'Next' }).click();
+        await page1.getByLabel('Enter your password').click();
+        await page1.getByLabel('Enter your password').fill(foederLoginPassword);
+        await page1.getByRole('button', { name: 'Next' }).click();
+        await page1.getByRole('button', { name: /Doorgaan|Next/ }).click();
+
+        await context.storageState({path: 'auth.json'});
+        browser.close()
+    })
+
+    })*/
+
+
 })
 
 

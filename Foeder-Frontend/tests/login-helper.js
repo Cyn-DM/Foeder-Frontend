@@ -4,11 +4,9 @@ export const login = async (page, foederLoginEmail, foederLoginPassword) => {
     const page1Promise = page.waitForEvent('popup', {});
     const lang = await page.locator('html').getAttribute('lang');
 
-    if (lang === 'nl') {
-        await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
-    } else {
-        await page.locator('iframe[title="Sign in with Google Button"]').contentFrame().getByRole('button').click();
-    }
+
+    await page.locator('iframe[title=/Knop Inloggen met Google|Sign in with Google Button/]').contentFrame().getByRole('button').click();
+
 
     await page.waitForLoadState('networkidle');
     const page1 = await page1Promise;
@@ -19,4 +17,21 @@ export const login = async (page, foederLoginEmail, foederLoginPassword) => {
     await page1.getByLabel('Enter your password').fill(foederLoginPassword);
     await page1.getByRole('button', { name: 'Next' }).click();
     await page1.getByRole('button', { name: /Doorgaan|Next/ }).click();
+}
+
+
+
+export const loginFoeder = async (page) => {
+    await page.goto('https://localhost:5173/');
+    await page.waitForTimeout(2000);
+    const page1Promise = page.waitForEvent('popup');
+
+    await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
+
+    await page.waitForLoadState('networkidle');
+    const page1 = await page1Promise;
+
+
+    await page1.getByRole('link', { name: 'TestAccount testfoeder@gmail.' }).click();
+    await page1.getByRole('button', { name: 'Doorgaan' }).click();
 }
