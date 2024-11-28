@@ -25,7 +25,6 @@ test.describe("With stealth plugin", () => {
 
             await loginFoeder(page, foederLoginPassword);
             await page.waitForTimeout(2000);
-            await page.waitForSelector('a:has-text("Recipes")');
             await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
             await browser.close();
     });
