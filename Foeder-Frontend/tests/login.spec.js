@@ -19,7 +19,7 @@ test.describe("With stealth plugin", () => {
     test.use({ignoreHTTPSErrors: true});
 
     test('login', async () => {
-        await chromium.launch({headless: true}).then(async browser => {
+            const browser = await chromium.launch({headless: true});
             const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
 
@@ -28,12 +28,11 @@ test.describe("With stealth plugin", () => {
             await page.waitForSelector('a:has-text("Recipes")');
             await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
             await browser.close();
-        })
     });
 
     test('add-household', async () => {
-        await chromium.launch({headless: true}).then(async browser => {
 
+            const browser = await chromium.launch({headless: true});
             const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
             await page.waitForTimeout(1000);
@@ -48,12 +47,12 @@ test.describe("With stealth plugin", () => {
             await expect(page.getByText('Test', {exact: true})).toBeVisible();
             await browser.close()
 
-        })
+
     });
 
     test('view-recipes', async () => {
 
-        await chromium.launch({headless: true}).then(async browser => {
+        const browser = await chromium.launch({headless: true});
 
             const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
@@ -64,8 +63,7 @@ test.describe("With stealth plugin", () => {
             await page.waitForSelector(':has-text("Spaghetti Bolognese")');
             await expect(page.getByText('Spaghetti Bolognese', {exact: true})).toBeVisible();
             await browser.close()
-
-        })
+        
     })
 
    /* test('manual-test-login', async () => {
