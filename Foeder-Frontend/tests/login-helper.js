@@ -34,4 +34,5 @@ export const loginFoeder = async (page) => {
     await page1.waitForSelector('[role="link"][data-identifier="testfoeder@gmail.com"]');
     await page1.getByRole('link', { name: 'TestAccount testfoeder@gmail.' }).click();
     await page1.getByRole('button', { name: 'Doorgaan' }).click();
+    await page1.waitForTimeout(3000);
 }
