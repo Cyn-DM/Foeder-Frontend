@@ -24,7 +24,7 @@ test.describe("With stealth plugin", () => {
             const page = await context.newPage();
 
             await loginFoeder(page, foederLoginPassword);
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(2000);
             await page.waitForSelector('a:has-text("Recipes")');
             await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
             await browser.close();
@@ -37,7 +37,7 @@ test.describe("With stealth plugin", () => {
             const page = await context.newPage();
             await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(2000);
             await page.getByRole('link', {name: 'Household'}).click();
             await page.waitForTimeout(2000);
             await page.getByRole('link', {name: 'Create a household'}).click();
@@ -58,12 +58,12 @@ test.describe("With stealth plugin", () => {
             const page = await context.newPage();
             await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(2000);
             await page.getByRole('link', {name: 'Recipes'}).click();
             await page.waitForSelector(':has-text("Spaghetti Bolognese")');
             await expect(page.getByText('Spaghetti Bolognese', {exact: true})).toBeVisible();
             await browser.close()
-        
+
     })
 
    /* test('manual-test-login', async () => {
