@@ -20,10 +20,10 @@ test.describe("With stealth plugin", () => {
 
     test('login', async () => {
         await chromium.launch({headless: true}).then(async browser => {
+            const context = await browser.newContext({storageState: 'auth.json'});
+            const page = await context.newPage();
 
-            const page = await browser.newPage()
-
-            await login(page, foederLoginEmail, foederLoginPassword);
+            await loginFoeder(page, foederLoginPassword);
 
             await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
             await browser.close();
@@ -35,6 +35,7 @@ test.describe("With stealth plugin", () => {
 
             const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
+            await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
 
             await page.waitForTimeout(2000);
@@ -56,7 +57,7 @@ test.describe("With stealth plugin", () => {
 
             const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
-
+            await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
 
             await page.waitForTimeout(3000);

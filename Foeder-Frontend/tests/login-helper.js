@@ -5,7 +5,7 @@ export const login = async (page, foederLoginEmail, foederLoginPassword) => {
     const lang = await page.locator('html').getAttribute('lang');
 
 
-    await page.locator('iframe[title=/Knop Inloggen met Google|Sign in with Google Button/]').contentFrame().getByRole('button').click();
+    await page.locator('iframe[title*="Google"]').contentFrame().getByRole('button').click();
 
 
     await page.waitForLoadState('networkidle');
@@ -26,7 +26,7 @@ export const loginFoeder = async (page) => {
     await page.waitForTimeout(2000);
     const page1Promise = page.waitForEvent('popup');
 
-    await page.locator('iframe[title="Knop Inloggen met Google"]').contentFrame().getByRole('button').click();
+    await page.locator('iframe[title*="Google"]').contentFrame().getByRole('button').click();
 
     await page.waitForLoadState('networkidle');
     const page1 = await page1Promise;
