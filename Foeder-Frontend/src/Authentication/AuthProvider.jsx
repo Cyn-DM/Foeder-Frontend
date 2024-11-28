@@ -33,15 +33,37 @@ export function AuthProvider({children})
         (error) => Promise.reject(error)
     );
 
+/*    axiosInstance.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+            const originalRequest = error.config;
+
+            if(error.response?.status === 401 && !originalRequest._retry){
+                originalRequest._retry = true;
+
+                try {
+                    setAccessTokenFromRefresh()
+
+                    const accessToken = localStorage.getItem('access_token');
+                    originalRequest.defaults.headers['Authorization'] = accessToken;
+                    return axiosInstance(originalRequest);
+                } catch (refreshError) {
+                    logout()
+                    return Promise.reject(refreshError)
+                }
+            }
+}
+    )*/
+
     AuthProvider.propTypes = {
         children: PropTypes.any
     }
 
     const createUser = (accessToken) => {
         let userInfo = jwtDecode(accessToken);
-
+        console.log(userInfo);
         return { "name" : userInfo.unique_name,
-            "id": userInfo.id,
+            "id": userInfo.Id,
             "email" : userInfo.email,
             "householdId" : userInfo.HouseholdId ?? undefined,
         }
