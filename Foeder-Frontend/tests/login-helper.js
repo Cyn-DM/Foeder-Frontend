@@ -28,10 +28,10 @@ export const loginFoeder = async (page) => {
 
     await page.locator('iframe[title*="Google"]').contentFrame().getByRole('button').click();
 
-    await page.waitForTimeout(3000)
+
     const page1 = await page1Promise;
 
-
+    await page1.waitForSelector('[role="link"][data-identifier="testfoeder@gmail.com"]');
     await page1.getByRole('link', { name: 'TestAccount testfoeder@gmail.' }).click();
     await page1.getByRole('button', { name: 'Doorgaan' }).click();
 }

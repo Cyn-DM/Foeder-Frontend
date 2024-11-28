@@ -25,6 +25,7 @@ test.describe("With stealth plugin", () => {
 
             await loginFoeder(page, foederLoginPassword);
 
+            await page.waitForSelector('a:has-text("Recipes")');
             await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
             await browser.close();
         })
@@ -62,7 +63,7 @@ test.describe("With stealth plugin", () => {
 
             await page.waitForTimeout(3000);
             await page.getByRole('link', {name: 'Recipes'}).click();
-            await page.waitForTimeout(2000);
+            await page.waitForSelector(':has-text("Spaghetti Bolognese")');
             await expect(page.getByText('Spaghetti Bolognese', {exact: true})).toBeVisible();
             await browser.close()
 
