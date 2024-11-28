@@ -28,7 +28,7 @@ export const loginFoeder = async (page) => {
 
     await page.locator('iframe[title*="Google"]').contentFrame().getByRole('button').click();
 
-    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000)
     const page1 = await page1Promise;
 
 
