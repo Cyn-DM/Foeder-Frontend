@@ -39,7 +39,7 @@ export function AuthProvider({children})
         (error) => Promise.reject(error)
     );
 
-/*    axiosInstance.interceptors.response.use(
+    axiosInstance.interceptors.response.use(
         (response) => response,
         async (error) => {
             const originalRequest = error.config;
@@ -59,7 +59,7 @@ export function AuthProvider({children})
                 }
             }
 }
-    )*/
+    )
 
     AuthProvider.propTypes = {
         children: PropTypes.any

@@ -60,7 +60,7 @@ export function CreateHousehold() {
                     </div>
                 </div>
             </div>
-            <div className="col-span-12 md:col-span-6 card w-96 md:w-[500px] shadow-xl bg-base-100">
+            <div className="col-span-12 md:col-span-6 mx-auto card mt-8 md:mt-0 w-72 md:w-[500px] shadow-xl bg-base-100">
                 <div className="card-body">
                     <div className="card-title inter-mainFont">
                         Why create a household?

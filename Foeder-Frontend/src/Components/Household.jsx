@@ -31,7 +31,7 @@ export default function Household(){
                         Household overview page
                     </div>
                     <HouseholdName name={"Please create or join a household."}/>
-                    <Link to="/create-household" className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create a household</Link>
+                    <Link to="/create-household" className="btn btn-accent shadow-lg btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create a household</Link>
                 </div>
             </ContentWrapper>
 

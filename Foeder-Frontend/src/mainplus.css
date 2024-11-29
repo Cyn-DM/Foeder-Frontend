@@ -2558,6 +2558,10 @@ body, html{
     margin-right: 1rem;
   }
 
+  .md\:mt-0 {
+    margin-top: 0px;
+  }
+
   .md\:flex {
     display: flex;
   }

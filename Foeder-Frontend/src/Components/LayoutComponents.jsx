@@ -62,7 +62,7 @@ function Header(){
         <Link to="/" className='text-sm lg:hidden btn btn-accent btn-xs text-base-100 foederFont lg:text-xl'>Foeder</Link>
           <ul className="menu menu-horizontal hidden lg:flex">
             <li className="text-black inter-mainFont font-medium text-lg"><AuthLink url={'./recipes'} isAuthenticated={isAuthenticated} name={'Recipes'} /></li>
-            <li className="text-black inter-mainFont font-medium text-lg"><Link to="./household" >Household</Link></li>
+              <li className="text-black inter-mainFont font-medium text-lg"><AuthLink url={"./household"} isAuthenticated={isAuthenticated} name={'Household'} /></li>
           </ul>
         </div>
         <div className="navbar-end">
