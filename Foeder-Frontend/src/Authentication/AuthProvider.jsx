@@ -9,8 +9,14 @@ export function AuthProvider({children})
 {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
-    let backendUrl = 'https://localhost:7058/api';
-
+    let docker = false;
+    docker = Boolean(import.meta.env.VITE_DOCKER);
+    let backendUrl;
+    if (docker) {
+        backendUrl =  'https://backend:7058/api';
+    } else {
+        backendUrl =  'https://localhost:7058/api';
+    }
     const axiosInstance = axios.create({
         baseURL: backendUrl,
         withCredentials: true,
