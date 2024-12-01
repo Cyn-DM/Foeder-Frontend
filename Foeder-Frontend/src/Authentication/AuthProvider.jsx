@@ -9,6 +9,10 @@ export function AuthProvider({children})
 {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
+    const [household, setHousehold] = useState(null);
+    const [invites, setInvites] = useState(null);
+    const [hasInvites, setHasInvites] = useState(false);
+
     let docker = false;
     docker = Boolean(import.meta.env.VITE_DOCKER);
     let backendUrl;
@@ -26,6 +30,38 @@ export function AuthProvider({children})
         setAccessTokenFromRefresh()
     }, [])
 
+    useEffect(() => {
+        if (user !== null){
+            GetHousehold();
+            GetInvites();
+        }
+    }, [user])
+
+    const GetHousehold = () => {
+        const userId = user.id;
+        axiosInstance.get(`/Household/GetHouseholdByUser?userId=${userId}` )
+            .then((response) => {
+                setHousehold(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const GetInvites = () => {
+        const userId = user.id;
+        axiosInstance.get(`/HouseholdInvite/GetHouseholdInvites?userId=${userId}` )
+            .then((response) => {
+                console.log(response.data);
+                setInvites(response.data);
+                if (response.data.length > 0) {
+                    setHasInvites(true);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
     axiosInstance.interceptors.request.use(
         (config) => {
             const accessToken = localStorage.getItem('access_token');
@@ -148,7 +184,12 @@ export function AuthProvider({children})
             getAccessToken,
             setAccessToken: setAccessTokenFromRefresh,
             handleCredentialResponse,
-            axiosInstance
+            axiosInstance,
+            household,
+            invites,
+            hasInvites,
+            GetInvites,
+            GetHousehold,
         }}>
             {children}
         </AuthContext.Provider>
