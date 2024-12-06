@@ -24,6 +24,9 @@ export default function Root(){
 
 function Header(){
     const {isAuthenticated} = UseAuth();
+
+
+
     return (
       <div className="navbar bg-base0100 min-h-0 h-12">
         <div className="navbar-start md:mr-4 ">
@@ -66,13 +69,28 @@ function Header(){
           </ul>
         </div>
         <div className="navbar-end">
-
+            <LogoutButton isAuthenticated={isAuthenticated}/>
         </div>
       </div>
     )
   }
 
-  export function ContentWrapper({children}) {
+  export function LogoutButton({isAuthenticated}){
+    const {logout} = UseAuth();
+
+    const handleLogout = () => {
+          logout();
+    }
+
+    if (isAuthenticated) return (
+        <button onClick={handleLogout} className="btn btn-sm btn-accent text-white inter-mainFont">Log out</button>
+    )
+      return (
+        <></>
+    )
+  }
+
+export function ContentWrapper({children}) {
     return (
         <div className="mx-auto flex gap-5 px-6 xl:px-96 mt-8">
             {children}
