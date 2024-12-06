@@ -129,11 +129,16 @@ export function AuthProvider({children})
         skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
     }
 
+    const clearHousehold = () => {
+        setHousehold(null);
+    }
+
     const logout = () => {
         setUser(null);
         setIsAuthenticated(false);
         clearAccessToken();
         clearRefreshToken();
+        clearHousehold();
     }
 
     const getAccessToken = () => {
