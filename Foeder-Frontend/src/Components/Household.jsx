@@ -3,21 +3,42 @@ import {useEffect, useState} from "react";
 import {ContentWrapper} from "./LayoutComponents.jsx";
 import {Link} from "react-router-dom";
 import InviteAlert from "./InviteAlert.jsx";
+import SuccessAlert from "./SuccessAlert.jsx";
 
 export default function Household(){
-    const { household, hasInvites, GetInvites, GetHousehold} = UseAuth();
+    const { household, hasInvites, GetInvites, setHousehold, GetHousehold, user, axiosInstance} = UseAuth();
+    const [successMessage, setSuccessMessage] = useState(null);
 
     useEffect(() => {
         GetInvites();
         GetHousehold();
     }, [])
 
+    function handleLeave(){
+        axiosInstance.delete(`/Household/LeaveHousehold?userId=${user.id}`).then((response) => {
+            if (response.status === 200){
+                setHousehold(null);
+
+                setSuccessMessage("You have successfully left the household.");
+
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 5000)
+            }
+        })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
 
     if (household === null){
         return (
             <div className="grid grid-cols-12 mx-auto mt-8 px-6 md:px-20 xl:px-72 gap-5">
                 <div className="col-span-12">
+                    {successMessage && (
+                        <SuccessAlert message={successMessage} />
+                    )}
                     <InviteAlert hasInvites={hasInvites}/>
                 </div>
 
@@ -50,8 +71,9 @@ export default function Household(){
                 <div className="w-72 md:w-96 ">
                     <HouseholdUsers users={household.users}/>
                 </div>
-                <div>
-                    <Link to={'/invite-user'} className="btn btn-accent">Invite user</Link>
+                <div className="flex flex-col gap-5">
+                    <Link to={'/invite-user'} className="btn btn-accent inter-mainFont">Invite user</Link>
+                    <button onClick={handleLeave} className="btn btn-error inter-mainFont">Leave</button>
                 </div>
             </div>
 

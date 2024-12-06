@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import {useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 const AuthContext = createContext(null)
@@ -12,6 +12,7 @@ export function AuthProvider({children})
     const [household, setHousehold] = useState(null);
     const [invites, setInvites] = useState(null);
     const [hasInvites, setHasInvites] = useState(false);
+    const navigator = useNavigate();
 
     let docker = false;
     docker = Boolean(import.meta.env.VITE_DOCKER);
@@ -54,9 +55,11 @@ export function AuthProvider({children})
             .then((response) => {
                 console.log(response.data);
                 setInvites(response.data);
-                if (response.data.length > 0) {
-                    setHasInvites(true);
-                }
+
+                const hasPendingInvites = response.data.some((invite) => invite.isAccepted === null);
+
+                setHasInvites(hasPendingInvites);
+
             })
             .catch((error) => {
                 console.log(error);
@@ -139,6 +142,7 @@ export function AuthProvider({children})
         clearAccessToken();
         clearRefreshToken();
         clearHousehold();
+        navigator("/")
     }
 
     const getAccessToken = () => {
