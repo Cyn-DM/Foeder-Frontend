@@ -36,7 +36,7 @@ export default function Household(){
         return (
             <div className="grid grid-cols-12 mx-auto mt-8 px-6 md:px-20 xl:px-72 gap-5">
                 <div className="col-span-12">
-                    <SuccessAlert message={successMessage} />
+                    <SuccessAlert successMessage={successMessage} />
                     <InviteAlert hasInvites={hasInvites}/>
                 </div>
 
