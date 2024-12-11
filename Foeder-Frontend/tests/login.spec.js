@@ -65,7 +65,7 @@ test.describe("With stealth plugin", () => {
 
     })
 
-   /* test('manual-test-login', async () => {
+/*    test('manual-test-login', async () => {
         await chromium.launch({headless: false}).then(async browser => {
             const context = await browser.newContext();
             const page = await context.newPage();
