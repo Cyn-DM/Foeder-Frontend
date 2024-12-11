@@ -2,38 +2,56 @@ import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useEffect, useState} from "react";
 import {ContentWrapper} from "./LayoutComponents.jsx";
 import {Link} from "react-router-dom";
+import InviteAlert from "./InviteAlert.jsx";
+import SuccessAlert from "./SuccessAlert.jsx";
 
 export default function Household(){
-    const {user, axiosInstance} = UseAuth();
-    const [household, setHousehold] = useState(null);
+    const { household, hasInvites, GetInvites, setHousehold, GetHousehold, user, axiosInstance} = UseAuth();
+    const [successMessage, setSuccessMessage] = useState(null);
 
     useEffect(() => {
+        GetInvites();
         GetHousehold();
     }, [])
 
-    const GetHousehold = () => {
-        console.log(user);
-        const userId = user.id;
-        axiosInstance.get(`/Household/GetHouseholdByUser?userId=${userId}` )
-            .then((response) => {
-                setHousehold(response.data);
-            })
+    function handleLeave(){
+        axiosInstance.delete(`/Household/LeaveHousehold?userId=${user.id}`).then((response) => {
+            if (response.status === 200){
+                setHousehold(null);
+
+                setSuccessMessage("You have successfully left the household.");
+
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 5000)
+            }
+        })
             .catch((error) => {
                 console.log(error);
             })
     }
 
+
     if (household === null){
         return (
-            <ContentWrapper>
+            <div className="grid grid-cols-12 mx-auto mt-8 px-6 md:px-20 xl:px-72 gap-5">
+                <div className="col-span-12">
+                    <SuccessAlert message={successMessage} />
+                    <InviteAlert hasInvites={hasInvites}/>
+                </div>
+
                 <div className="col-span-12 md:col-span-6">
                     <div className="inter-mainFont font-bold text-5xl">
                         Household overview page
                     </div>
-                    <HouseholdName name={"Please create or join a household."}/>
-                    <Link to="/create-household" className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create a household</Link>
+                    <div className="col-span-12 flex flex-wrap gap-5">
+                        <HouseholdName name={"Please create or join a household."}/>
+                        <Link to="/create-household"
+                            className="btn btn-accent shadow-lg btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create
+                            a household</Link>
+                    </div>
                 </div>
-            </ContentWrapper>
+            </div>
 
 
         )
@@ -51,8 +69,9 @@ export default function Household(){
                 <div className="w-72 md:w-96 ">
                     <HouseholdUsers users={household.users}/>
                 </div>
-                <div>
-                    <button className="btn btn-accent">Invite user</button>
+                <div className="flex flex-col gap-5">
+                    <Link to={'/invite-user'} className="btn btn-accent inter-mainFont">Invite user</Link>
+                    <button onClick={handleLeave} className="btn btn-error inter-mainFont">Leave</button>
                 </div>
             </div>
 

@@ -39,20 +39,45 @@ export function CreateHousehold() {
 
 
     return (
-        <div className='lg:border lg:border-gray-300 pl-6 pr-6 pb-6 lg:mt-6 md:max-w-3xl lg:max-w-4xl 2xl:max-w-7xl mx-auto'>
-            <div className='w-[calc(100%+3rem)] h-14 bg-secondary -ml-6 flex items-center justify-center'>
-                <p className='text-center align-middle text-secondary-content text-2xl md:text-4xl'>Create a household</p>
-            </div>
-            <div className='flex items-center justify-center'>
-                <div className="form-control mt-8 mb-8">
-                    <div className="label">
-                        <div className='label-text md:text-xl'>Household name</div>
+        <div className="grid grid-cols-12 mx-auto mt-10 px-6 md:px-20 xl:px-72 gap-0">
+            <div className="col-span-12 mx-auto md:col-span-6 card w-72 md:w-96 shadow-xl bg-base-100">
+                <div className="card-body">
+                    <div className="card-title inter-mainFont">
+                        Create your household
                     </div>
-                    <input type='text' placeholder='Household name' className='input input-bordered w-full max-w-xs md:input-lg' id="householdInput"/>
-                    <button onClick={handleClick} type="button" className='btn btn-secondary btn-block  mt-6'>Submit</button>
-                    <label className="warning-label w-full max-w-xs whitespace-pre-wrap">{labelText}</label>
+                    <div className="col-span-12 flex flex-wrap gap-5">
+                        <div className="w-72 md:w-96 ">
+                            <div className="label">
+                                <div className='label-text md:text-xl'>Household name</div>
+                            </div>
+                            <input type='text' placeholder='Household name'
+                                   className='input input-bordered w-full max-w-xs md:input-lg inter-mainFont' id="householdInput"/>
+                            <button onClick={handleClick} type="button"
+                                    className='btn btn-accent shadow-md btn-block text-white inter-mainFont mt-6'>Save
+                            </button>
+                            <label className="warning-label w-full max-w-xs whitespace-pre-wrap">{labelText}</label>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div className="col-span-12 md:col-span-6 mx-auto card mt-8 md:mt-0 w-72 md:w-[500px] shadow-xl bg-base-100">
+                <div className="card-body">
+                    <div className="card-title inter-mainFont">
+                        Why create a household?
+                    </div>
+                    <div className="inter-mainFont">
+                        <p>Once you&#39;ve created a household, you can add members.
+                            Foeder allows you to share recipes, as well as vote on what to eat.</p>
+                        <p>
+                            You can always change your household name later on and invite or remove members.
+                            All you need to add someone is the email-address they&#39;ve created their account with.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+
     )
 }
