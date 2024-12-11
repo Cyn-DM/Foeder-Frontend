@@ -13,6 +13,11 @@ export function AuthProvider({children})
     const [invites, setInvites] = useState(null);
     const [hasInvites, setHasInvites] = useState(false);
     const navigator = useNavigate();
+    const [reload, setReload] = useState(false);
+
+    const reloadComponent = () => {
+        setReload(prevReload => !prevReload);
+    }
 
     let docker = false;
     docker = Boolean(import.meta.env.VITE_DOCKER);
@@ -75,7 +80,7 @@ export function AuthProvider({children})
             }
             return config;
         },
-        (error) => Promise.reject(error)
+        (error) =>  {return Promise.reject(error)}
     );
 
     axiosInstance.interceptors.response.use(
@@ -87,7 +92,7 @@ export function AuthProvider({children})
                 originalRequest._retry = true;
 
                 try {
-                    setAccessTokenFromRefresh()
+                    await setAccessTokenFromRefresh()
 
                     const accessToken = localStorage.getItem('access_token');
                     originalRequest.defaults.headers['Authorization'] = accessToken;
@@ -97,6 +102,8 @@ export function AuthProvider({children})
                     return Promise.reject(refreshError)
                 }
             }
+
+            return Promise.reject(error);
 }
     )
 
@@ -199,6 +206,7 @@ export function AuthProvider({children})
             hasInvites,
             GetInvites,
             GetHousehold,
+            reloadComponent
         }}>
             {children}
         </AuthContext.Provider>

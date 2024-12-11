@@ -1,6 +1,11 @@
 import {Link} from "react-router-dom";
 
 export default function SuccessAlert({successMessage}) {
+    if (successMessage === null) {
+        return <></>
+    }
+
+
     return <div className="alert bg-accent text-white shadow-lg max-w-3xl " role="alert">
         <svg
             xmlns="http://www.w3.org/2000/svg"

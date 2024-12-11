@@ -1,9 +1,12 @@
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useState} from "react";
+import SuccessAlert from "./SuccessAlert.jsx";
 
 export default function InviteUser() {
     const {household, axiosInstance} = UseAuth();
     const [labelText, setLabelText] = useState("");
+    const [successMessage, setSuccessMessage] = useState(null);
+
     const submitInvite = () => {
         const input = document.getElementById("emailInput").value;
 
@@ -14,9 +17,21 @@ export default function InviteUser() {
 
             axiosInstance.post(`/HouseholdInvite/PostHouseholdInvite`, invite )
                 .then((response) => {
-                    setLabelText("Successfully invited.")
+                    if (response.status === 200){
+                        setSuccessMessage("You have successfully invited a user.");
+                    }
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 5000)
                 })
                 .catch((error) => {
+                    if (error.response){
+                        setSuccessMessage("User was not found.");
+
+                        setTimeout(() => {
+                            setSuccessMessage(null);
+                        }, 5000)
+                    }
                     console.log(error);
                 })
         }
@@ -30,6 +45,9 @@ export default function InviteUser() {
                     Invite someone to your household
                 </div>
 
+            </div>
+            <div className="col-span-12">
+                <SuccessAlert successMessage={successMessage} />
             </div>
             <div className="col-span-12 flex flex-wrap gap-5">
                 <div className="w-72 md:w-96 ">
@@ -46,7 +64,6 @@ export default function InviteUser() {
                         </svg>
                         <input type="text" className="grow" placeholder="Email" id="emailInput"/>
                     </label>
-                    <label className="warning-label w-full max-w-xs whitespace-pre-wrap">{labelText}</label>
                 </div>
                 <div>
                     <button onClick={submitInvite} type="button" className="btn btn-accent">Submit</button>

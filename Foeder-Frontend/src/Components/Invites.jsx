@@ -1,13 +1,11 @@
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function Invites(){
     const { invites, GetInvites, hasInvites} = UseAuth();
-    const [reload, setReload] = useState(false);
+    const navigate = useNavigate();
 
-    const reloadComponent = () => {
-        setReload(prevReload => !prevReload);
-    }
 
 
     useEffect(() => {
@@ -48,8 +46,9 @@ function InviteCard ({invite}){
             }
 
         axiosInstance.post("/HouseholdInvite/RespondToHouseholdInvite", invite).then((response) => {
-            console.log(response.data);
-
+            if(response.status === 200){
+                navigate("/household");
+            }
         })
             .catch((error) => {
                 console.log(error);
