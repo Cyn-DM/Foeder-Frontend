@@ -1,5 +1,14 @@
 export const login = async (page, foederLoginEmail, foederLoginPassword) => {
-    await page.goto('https://localhost:5173/');
+
+    let docker = false;
+    docker = Boolean(import.meta.env.VITE_DOCKER);
+    let backendUrl;
+    if (docker) {
+        backendUrl =  'https://backend:7058/api';
+    } else {
+        backendUrl =  'https://localhost:7058/api';
+    }
+    await page.goto(backendUrl);
     await page.waitForTimeout(2000);
     const page1Promise = page.waitForEvent('popup', {});
     const lang = await page.locator('html').getAttribute('lang');
