@@ -20,7 +20,7 @@ test.describe("With stealth plugin", () => {
 
     test('login', async () => {
             const browser = await chromium.launch({headless: true});
-            const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
+            const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
 
             await loginFoeder(page, foederLoginPassword);
@@ -32,7 +32,7 @@ test.describe("With stealth plugin", () => {
     test('add-household', async () => {
 
             const browser = await chromium.launch({headless: true});
-            const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
+            const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
             await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
@@ -53,7 +53,7 @@ test.describe("With stealth plugin", () => {
 
         const browser = await chromium.launch({headless: true});
 
-            const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
+            const context = await browser.newContext({storageState: 'auth.json'});
             const page = await context.newPage();
             await page.waitForTimeout(1000);
             await loginFoeder(page, foederLoginPassword);
