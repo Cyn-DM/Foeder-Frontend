@@ -33,6 +33,7 @@ export const loginFoeder = async (page) => {
     const page1 = await page1Promise;
 
     await page1.waitForSelector('[role="link"][data-identifier="testfoeder@gmail.com"]');
+    await page1.waitForTimeout(2000);
     await page1.getByRole('link', { name: 'TestAccount testfoeder@gmail.' }).click();
     await page1.getByRole('button', { name: 'Doorgaan' }).click();
 }

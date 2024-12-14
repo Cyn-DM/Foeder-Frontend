@@ -42,7 +42,7 @@ test.describe("With stealth plugin", () => {
             await page.getByRole('link', {name: 'Create a household'}).click();
             await page.getByPlaceholder('Household name').click();
             await page.getByPlaceholder('Household name').fill('Test');
-            await page.getByRole('button', {name: 'Submit'}).click();
+            await page.getByRole('button', {name: 'Save'}).click();
             await expect(page.getByText('Test', {exact: true})).toBeVisible();
             await browser.close()
 
