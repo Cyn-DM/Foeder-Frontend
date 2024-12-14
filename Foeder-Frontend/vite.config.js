@@ -11,12 +11,10 @@ export default defineConfig({
       savePath: './certs', 
     }),].filter(Boolean),
   server: {
-    https: isDocker
-      ? {
+    https: {
           key: '/app/certs/dev.pem', 
           cert: '/app/certs/cert.pem',
-        }
-      : true,
+        },
     host: '0.0.0.0',
   },
 })
