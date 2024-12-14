@@ -7,7 +7,7 @@ const isDocker = process.env.VITE_DOCKER === 'true'
 // https://vitejs.dev/config/
 export default defineConfig({
 	
-  plugins: [react(),!isDocker && mkcert({
+  plugins: [react(), mkcert({
       savePath: './certs', 
     }),].filter(Boolean),
   server: {
