@@ -7,14 +7,16 @@ const isDocker = process.env.VITE_DOCKER === 'true'
 // https://vitejs.dev/config/
 export default defineConfig({
 	
-  plugins: [react(), mkcert({
+  plugins: [react(),!isDocker && mkcert({
       savePath: './certs', 
     }),].filter(Boolean),
   server: {
-    https: {
+    https: isDocker
+      ? {
           key: '/app/certs/dev.pem', 
           cert: '/app/certs/cert.pem',
-        },
+        }
+      : true,
     host: '0.0.0.0',
   },
 })
