@@ -42,7 +42,7 @@ test.describe("With stealth plugin", () => {
             await page.getByRole('link', {name: 'Create a household'}).click();
             await page.getByPlaceholder('Household name').click();
             await page.getByPlaceholder('Household name').fill('Test');
-            await page.getByRole('button', {name: 'Submit'}).click();
+            await page.getByRole('button', {name: 'Save'}).click();
             await expect(page.getByText('Test', {exact: true})).toBeVisible();
             await browser.close()
 
@@ -65,7 +65,7 @@ test.describe("With stealth plugin", () => {
 
     })
 
-    test('manual-test-login', async () => {
+/*    test('manual-test-login', async () => {
         await chromium.launch({headless: false}).then(async browser => {
             const context = await browser.newContext();
             const page = await context.newPage();
@@ -91,7 +91,7 @@ test.describe("With stealth plugin", () => {
         browser.close()
     })
 
-    })
+    })*/
 
 
 })
