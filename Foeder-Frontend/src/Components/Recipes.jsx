@@ -41,11 +41,14 @@ export default function RecipeList() {
                     Recipes
                 </p>
                 <div className="flex gap-5">
-                    <button className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Add
-                        Recipe
-                    </button>
+                    <Link to={"/add-recipe"}>
+                        <button
+                            className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Add
+                            Recipe
+                        </button>
+                    </Link>
                     <button className="btn btn-accent btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">
-                        Filter
+                    Filter
                     </button>
                 </div>
             </div>

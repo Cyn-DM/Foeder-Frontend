@@ -9,6 +9,7 @@ import {CreateHousehold} from "../Components/CreateHousehold.jsx";
 import Household from "../Components/Household.jsx";
 import InviteUser from "../Components/InviteUser.jsx";
 import Invites from "../Components/Invites.jsx";
+import AddRecipe from "../Components/AddRecipe.jsx";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "invites",
                 element: <Invites />
+            },
+            {
+                path: "add-recipe",
+                element: <AddRecipe />
             }
         ]
     }
