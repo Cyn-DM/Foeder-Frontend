@@ -44,3 +44,9 @@ body, html{
     z-index: 0; /* Place behind text */
 }
 
+.image-container {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid darkgray;
+}
+
