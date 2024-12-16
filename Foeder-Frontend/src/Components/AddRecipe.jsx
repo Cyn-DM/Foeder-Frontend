@@ -1,6 +1,9 @@
 import {useState} from "react";
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function AddRecipe(){
+    const {axiosInstance} = UseAuth();
+
     const [stepCount, setStepCount] = useState(0);
     const [ingredientCount, setIngredientCount] = useState(0);
 
@@ -8,6 +11,24 @@ export default function AddRecipe(){
     const handleStepCountDecrease = () => setStepCount((prev) => Math.max(prev - 1, 0));
     const handleIngredientCountIncrease = () => setIngredientCount((prev) => prev + 1);
     const handleIngredientCountDecrease = () => setIngredientCount((prev) => Math.max(prev - 1, 0));
+
+    const handleSubmit = () => {
+        const title = Document.getElementById("title").value;
+        const description = Document.getElementById("description").value;
+        let ingredientList = [];
+
+        Array.from({length: ingredientCount}).forEach(
+            (index) => {
+                const ingredient = {
+                    Document.GetElemen
+                }
+                ingredientList.push()
+            }
+        )
+
+        axiosInstance.post()
+    }
+
 
 
     return (
@@ -101,7 +122,7 @@ export default function AddRecipe(){
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
+                            <button onClick={handleSubmit} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
                         </div>
                     </div>
                 </form>
@@ -148,7 +169,7 @@ function IngredientList({ingredientCount, handleIngredientDecrease}){
     return (
         <>
             {Array.from({length: ingredientCount}).map((_, index) => {
-                const ingredientNr = index;
+                const ingredientNr = "ingredient-" + index;
 
                 return (
 
