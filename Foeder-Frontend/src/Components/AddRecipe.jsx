@@ -3,11 +3,31 @@ import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 
 export default function AddRecipe(){
-    const {axiosInstance} = UseAuth();
-    const { register, control, handleSubmit} = useForm();
-    const { fields: fieldsStep, append : appendStep, remove: removeStep } = useFieldArray( {control, name: "stepList"});
-    const { fields: fieldsIngredient, append : appendIngredient, remove: removeIngredient } = useFieldArray( {control, name: "ingredientList"});
+    const {axiosInstance, household} = UseAuth();
 
+    const { register, control, handleSubmit} = useForm();
+    const { fields: fieldsStep, append : appendStep, remove: removeStep } = useFieldArray( {control, name: "Steps"});
+    const { fields: fieldsIngredient, append : appendIngredient, remove: removeIngredient } = useFieldArray( {control, name: "Ingredients"});
+
+
+
+    const handleRecipeSubmit = (data) => {
+
+        if (data.Steps && Array.isArray(data.Steps)) {
+            data.Steps = data.Steps.map(stepObj => stepObj.step);
+        }
+
+        data.HouseholdId = household.id;
+
+        axiosInstance.post("/Recipe/AddRecipe", data)
+            .then(() => {
+                
+            })
+            .catch((error) => {
+            console.log(error);
+        })
+
+    }
 
 
     return (
@@ -24,8 +44,7 @@ export default function AddRecipe(){
                                     <label htmlFor="title">Title</label>
                                 </div>
                                 <input type="text"
-                                       id="title"
-                                       name="title"
+                                       {...register("Title")}
                                        className="input input-bordered w-full max-w-sm mb-3"
                                        placeholder="Title"
                                 />
@@ -33,8 +52,7 @@ export default function AddRecipe(){
                                     <label htmlFor="description">Description</label>
                                 </div>
                                 <textarea
-                                    id="description"
-                                    name="description"
+                                    {...register("Description")}
                                     className="textarea textarea-bordered textarea-md max-w-sm"
                                     placeholder="Description"
                                 />
@@ -56,7 +74,7 @@ export default function AddRecipe(){
                             <StepList fields={fieldsStep} append={appendStep} register={register} remove={removeStep}/>
                         </div>
                         <div>
-                            <button onClick={handleSubmit} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
+                            <button onClick={handleSubmit(handleRecipeSubmit)} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
                         </div>
                     </div>
                 </form>
@@ -79,7 +97,7 @@ function StepList({fields, append, remove, register}) {
                 return (
 
                     <div className="flex items-center gap-4 mb-4" key={item.id}>
-                        <input {...register(`stepList.${index}.step`)} key={item.id} type="text"
+                        <input {...register(`Steps.${index}.step`)} key={item.id} type="text"
                                className="input input-bordered w-full max-w-sm"
                                placeholder="Step"/>
                         <button type="button" onClick={() => remove(index)}>
@@ -101,7 +119,7 @@ function StepList({fields, append, remove, register}) {
 
             </div>
             <div className="inter-mainFont text-3xl mb-4">
-                <button className="flex " type="button" onClick={() => append({step: ""})}>
+                <button className="flex " type="button" onClick={() => append({Step: ""})}>
                     <div className="flex items-center gap-3">
                         <div className=""> Add a step</div>
                         <svg width="53px" height="53px" viewBox="2 2 20 20" fill="none"
@@ -132,10 +150,10 @@ function IngredientList({fields, register, append, remove}) {
                     return (
 
                         <div className="flex items-center gap-4 mb-4" key={item.id}>
-                            <input {...register(`ingredientList.${index}.name`)} type="text"
+                            <input {...register(`Ingredients.${index}.Name`)} type="text"
                                    className="input input-bordered w-full max-w-sm"
                                    placeholder="Ingredient"/>
-                            <input {...register(`ingredientList.${index}.amount`)}
+                            <input {...register(`Ingredients.${index}.Amount`)}
                                    type="text"
                                    className="input input-bordered w-full max-w-sm"
                                    placeholder="Amount"/>
@@ -157,7 +175,7 @@ function IngredientList({fields, register, append, remove}) {
                 })}
             </div>
             <div className="inter-mainFont text-3xl mb-4">
-                <button className="flex " type="button" onClick={() => append({name: "", amount: ""})}>
+                <button className="flex " type="button" onClick={() => append({Name: "", Amount: ""})}>
                     <div className="flex items-center gap-3">
                         <div className=""> Add an ingredient</div>
                         <svg width="53px" height="53px" viewBox="2 2 20 20" fill="none"
