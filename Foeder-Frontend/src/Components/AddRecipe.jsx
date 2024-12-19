@@ -1,11 +1,12 @@
 import {useState} from "react";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
+import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export default function AddRecipe(){
     const {axiosInstance, household} = UseAuth();
 
-    const { register, control, handleSubmit} = useForm();
+    const { register, control, handleSubmit, formState: { errors },} = useForm();
     const { fields: fieldsStep, append : appendStep, remove: removeStep } = useFieldArray( {control, name: "Steps"});
     const { fields: fieldsIngredient, append : appendIngredient, remove: removeIngredient } = useFieldArray( {control, name: "Ingredients"});
 
@@ -21,7 +22,7 @@ export default function AddRecipe(){
 
         axiosInstance.post("/Recipe/AddRecipe", data)
             .then(() => {
-                
+                toast.success('Successfully added recipe.');
             })
             .catch((error) => {
             console.log(error);
@@ -30,62 +31,77 @@ export default function AddRecipe(){
     }
 
 
-    return (
-        <div className="min-h-screen mx-auto w-[80%] overflow-visible mb-8 pb-16">
-            <div className="flex flex-col mt-10 px-6 md:px-20 xl:px-72 inter-mainFont overflow-y-auto">
-                <div className="inter-mainFont text-5xl mb-8">
-                    Add a recipe
-                </div>
-                <form className="form-control flex flex-col">
-                    <div className="w-fit">
-                        <div className="flex flex-row flex-wrap-reverse gap-8 mb-8">
-                            <div className="flex flex-col">
-                                <div className="flex">
-                                    <label htmlFor="title">Title</label>
-                                </div>
-                                <input type="text"
-                                       {...register("Title")}
-                                       className="input input-bordered w-full max-w-sm mb-3"
-                                       placeholder="Title"
-                                />
-                                <div className="flex">
-                                    <label htmlFor="description">Description</label>
-                                </div>
-                                <textarea
-                                    {...register("Description")}
-                                    className="textarea textarea-bordered textarea-md max-w-sm"
-                                    placeholder="Description"
-                                />
-                            </div>
-                            <div className="flex flex-col">
-                                <label htmlFor="image">Image</label>
-                                <div className="image-container max-w-sm aspect-square mb-4">
-                                </div>
-                                <input type="file"
-                                       className="file-input file-input-bordered file-input-accent w-full max-w-xs mb-4"/>
-                                <button type="button" className="btn btn-accent max-w-sm text-white">Upload photo
-                                </button>
-                            </div>
-                        </div>
-                        <div className="flex flex-col w-full bg-white rounded-lg mb-8 p-8">
-                            <IngredientList fields={fieldsIngredient} append={appendIngredient} remove={removeIngredient} register={register} />
-                        </div>
-                        <div className="flex flex-col w-full bg-white rounded-lg p-8 mb-8">
-                            <StepList fields={fieldsStep} append={appendStep} register={register} remove={removeStep}/>
-                        </div>
-                        <div>
-                            <button onClick={handleSubmit(handleRecipeSubmit)} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
-                        </div>
+    return (<>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+            <div className="min-h-screen mx-auto w-[80%] overflow-visible mb-8 pb-16">
+                <div className="flex flex-col mt-10 px-6 md:px-20 xl:px-72 inter-mainFont overflow-y-auto">
+                    <div className="inter-mainFont text-5xl mb-8">
+                        Add a recipe
                     </div>
-                </form>
+                    <form className="form-control flex flex-col">
+                        <div className="w-fit">
+                            <div className="flex flex-row flex-wrap-reverse gap-8 mb-8">
+                                <div className="flex flex-col">
+                                    <div className="flex">
+                                        <label htmlFor="title">Title</label>
+                                    </div>
+                                    <input type="text"
+                                           {...register("Title", {required : "A title is required"})}
+                                           className="input input-bordered w-full max-w-sm mb-3"
+                                           placeholder="Title"
+                                    />
+                                    <div className="flex">
+                                        <label htmlFor="description">Description</label>
+                                    </div>
+                                    <textarea
+                                        {...register("Description", {required: false})}
+                                        className="textarea textarea-bordered textarea-md max-w-sm"
+                                        placeholder="Description"
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <label htmlFor="image">Image</label>
+                                    <div className="image-container max-w-sm aspect-square mb-4">
+                                    </div>
+                                    <input type="file"
+                                           className="file-input file-input-bordered file-input-accent w-full max-w-xs mb-4"/>
+                                    <button type="button" className="btn btn-accent max-w-sm text-white">Upload photo
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="flex flex-col w-full bg-white rounded-lg mb-8 p-8">
+                                <IngredientList fields={fieldsIngredient} append={appendIngredient} remove={removeIngredient} register={register} />
+                            </div>
+                            <div className="flex flex-col w-full bg-white rounded-lg p-8 mb-8">
+                                <StepList fields={fieldsStep} append={appendStep} register={register} remove={removeStep}/>
+                            </div>
+                            <div>
+                                <button onClick={handleSubmit(handleRecipeSubmit)} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
 
             </div>
+    </>
 
-        </div>
     )
 }
 
-function StepList({fields, append, remove, register}) {
+function StepList({fields, append, remove, register, errors}) {
 
     return (
         <>
@@ -97,7 +113,8 @@ function StepList({fields, append, remove, register}) {
                 return (
 
                     <div className="flex items-center gap-4 mb-4" key={item.id}>
-                        <input {...register(`Steps.${index}.step`)} key={item.id} type="text"
+                        {errors.mail && <p role="alert">{errors.Ingredients.index.Name.message}</p>}
+                        <input {...register(`Steps.${index}.step`, {required: "Please fill in the step"})} key={item.id} type="text"
                                className="input input-bordered w-full max-w-sm"
                                placeholder="Step"/>
                         <button type="button" onClick={() => remove(index)}>
@@ -141,7 +158,7 @@ function StepList({fields, append, remove, register}) {
     )
 }
 
-function IngredientList({fields, register, append, remove}) {
+function IngredientList({fields, register, append, remove, errors}) {
     return (
         <>
             <div className="flex flex-col w-full mb-4">
@@ -150,10 +167,12 @@ function IngredientList({fields, register, append, remove}) {
                     return (
 
                         <div className="flex items-center gap-4 mb-4" key={item.id}>
-                            <input {...register(`Ingredients.${index}.Name`)} type="text"
+                            {errors.mail && <p role="alert">{errors.Ingredients.index.Name.message}</p>}
+                            <input {...register(`Ingredients.${index}.Name`, {required: "Please fill in the ingredient name"})} type="text"
                                    className="input input-bordered w-full max-w-sm"
                                    placeholder="Ingredient"/>
-                            <input {...register(`Ingredients.${index}.Amount`)}
+                            {errors.mail && <p role="alert">{errors.Ingredients.index.Amount.message}</p>}
+                            <input {...register(`Ingredients.${index}.Amount`, {required: "Please fill in the amount"})}
                                    type="text"
                                    className="input input-bordered w-full max-w-sm"
                                    placeholder="Amount"/>
