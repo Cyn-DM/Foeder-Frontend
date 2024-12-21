@@ -61,15 +61,26 @@ export default function AddRecipe(){
                                         <label htmlFor="title">Title</label>
                                     </div>
                                     <input type="text"
-                                           {...register("Title", {required : "A title is required"})}
+                                           {...register("Title", {required : "A title is required", maxLength: {
+                                                    value: 100,
+                                                    message: "Title should be less than 100 characters.",
+                                               }
+                                           })
+                                    }
                                            className="input input-bordered w-full max-w-sm mb-3"
                                            placeholder="Title"
                                     />
+                                    {errors?.Description && (
+                                        <p className="text-red-800" role="alert">{errors.Description.message}</p>
+                                    )}
                                     <div className="flex">
                                         <label htmlFor="description">Description</label>
                                     </div>
                                     <textarea
-                                        {...register("Description", {required: false})}
+                                        {...register("Description", {required: false, maxLength: {
+                                            value: 250,
+                                            message: "Description should be less than 250 characters.",
+                                        }})}
                                         className="textarea textarea-bordered textarea-md max-w-sm"
                                         placeholder="Description"
                                     />
@@ -120,7 +131,10 @@ function StepList({fields, append, remove, register, errors}) {
                             {errors?.Steps?.[index]?.step && (
                                 <p className="text-red-800" role="alert">{errors.Steps[index].step.message}</p>
                             )}
-                            <input {...register(`Steps.${index}.step`, {required: "Please fill in the step"})} key={item.id} type="text"
+                            <input {...register(`Steps.${index}.step`, {required: "Please fill in the step", maxLength: {
+                                    value: 250,
+                                    message: "Step should be less than 250 characters.",
+                                }})} key={item.id} type="text"
                                    className="input input-bordered w-full max-w-sm"
                                    placeholder="Step"/>
                         </div>
@@ -178,7 +192,10 @@ function IngredientList({fields, register, append, remove, errors}) {
                                 {errors?.Ingredients?.[index]?.Name && (
                                     <p className="text-red-800" role="alert">{errors.Ingredients[index].Name.message}</p>
                                 )}
-                                <input {...register(`Ingredients.${index}.Name`, {required: "Please fill in the ingredient"})} type="text"
+                                <input {...register(`Ingredients.${index}.Name`, {required: "Please fill in the ingredient", maxLength: {
+                                        value: 50,
+                                        message: "Ingredient should be less than 50 characters.",
+                                    }})} type="text"
                                        className="input input-bordered w-full max-w-sm"
                                        placeholder="Ingredient"/>
                             </div>
@@ -187,7 +204,10 @@ function IngredientList({fields, register, append, remove, errors}) {
                                     <p className="text-red-800" role="alert">{errors.Ingredients[index].Amount.message}</p>
                                 )}
                                 <div className="flex">
-                                    <input {...register(`Ingredients.${index}.Amount`, {required: "Please fill in the amount"})}
+                                    <input {...register(`Ingredients.${index}.Amount`, {required: "Please fill in the amount", maxLength: {
+                                            value: 50,
+                                            message: "Ingredient amount should be less than 50 characters.",
+                                        }})}
                                            type="text"
                                            className="input input-bordered w-full max-w-sm"
                                            placeholder="Amount"/>
