@@ -54,6 +54,9 @@ export default function AddRecipe(){
                         <div className="w-fit">
                             <div className="flex flex-row flex-wrap-reverse gap-8 mb-8">
                                 <div className="flex flex-col">
+                                    {errors?.Title && (
+                                        <p className="text-red-800" role="alert">{errors.Title.message}</p>
+                                    )}
                                     <div className="flex">
                                         <label htmlFor="title">Title</label>
                                     </div>
@@ -82,13 +85,13 @@ export default function AddRecipe(){
                                 </div>
                             </div>
                             <div className="flex flex-col w-full bg-white rounded-lg mb-8 p-8">
-                                <IngredientList fields={fieldsIngredient} append={appendIngredient} remove={removeIngredient} register={register} />
+                                <IngredientList fields={fieldsIngredient} append={appendIngredient} remove={removeIngredient} register={register} errors={errors} />
                             </div>
                             <div className="flex flex-col w-full bg-white rounded-lg p-8 mb-8">
-                                <StepList fields={fieldsStep} append={appendStep} register={register} remove={removeStep}/>
+                                <StepList fields={fieldsStep} append={appendStep} register={register} remove={removeStep} errors={errors}/>
                             </div>
                             <div>
-                                <button onClick={handleSubmit(handleRecipeSubmit)} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
+                                <button onClick={handleSubmit(handleRecipeSubmit, () => console.log(errors))} className="btn btn-accent w-full inter-mainFont text-white" type="button">Save</button>
                             </div>
                         </div>
                     </form>
@@ -113,10 +116,14 @@ function StepList({fields, append, remove, register, errors}) {
                 return (
 
                     <div className="flex items-center gap-4 mb-4" key={item.id}>
-                        {errors.mail && <p role="alert">{errors.Ingredients.index.Name.message}</p>}
-                        <input {...register(`Steps.${index}.step`, {required: "Please fill in the step"})} key={item.id} type="text"
-                               className="input input-bordered w-full max-w-sm"
-                               placeholder="Step"/>
+                        <div className="flex flex-col">
+                            {errors?.Steps?.[index]?.step && (
+                                <p className="text-red-800" role="alert">{errors.Steps[index].step.message}</p>
+                            )}
+                            <input {...register(`Steps.${index}.step`, {required: "Please fill in the step"})} key={item.id} type="text"
+                                   className="input input-bordered w-full max-w-sm"
+                                   placeholder="Step"/>
+                        </div>
                         <button type="button" onClick={() => remove(index)}>
                             <svg width="53px" height="53px" viewBox="2 2 20 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -167,15 +174,25 @@ function IngredientList({fields, register, append, remove, errors}) {
                     return (
 
                         <div className="flex items-center gap-4 mb-4" key={item.id}>
-                            {errors.mail && <p role="alert">{errors.Ingredients.index.Name.message}</p>}
-                            <input {...register(`Ingredients.${index}.Name`, {required: "Please fill in the ingredient name"})} type="text"
-                                   className="input input-bordered w-full max-w-sm"
-                                   placeholder="Ingredient"/>
-                            {errors.mail && <p role="alert">{errors.Ingredients.index.Amount.message}</p>}
-                            <input {...register(`Ingredients.${index}.Amount`, {required: "Please fill in the amount"})}
-                                   type="text"
-                                   className="input input-bordered w-full max-w-sm"
-                                   placeholder="Amount"/>
+                            <div className="flex flex-col">
+                                {errors?.Ingredients?.[index]?.Name && (
+                                    <p className="text-red-800" role="alert">{errors.Ingredients[index].Name.message}</p>
+                                )}
+                                <input {...register(`Ingredients.${index}.Name`, {required: "Please fill in the ingredient"})} type="text"
+                                       className="input input-bordered w-full max-w-sm"
+                                       placeholder="Ingredient"/>
+                            </div>
+                            <div className="flex flex-col">
+                                {errors?.Ingredients?.[index]?.Amount && (
+                                    <p className="text-red-800" role="alert">{errors.Ingredients[index].Amount.message}</p>
+                                )}
+                                <div className="flex">
+                                    <input {...register(`Ingredients.${index}.Amount`, {required: "Please fill in the amount"})}
+                                           type="text"
+                                           className="input input-bordered w-full max-w-sm"
+                                           placeholder="Amount"/>
+                                </div>
+                            </div>
                             <button type="button" onClick={() => remove(index)}>
                                 <svg width="53px" height="53px" viewBox="2 2 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
