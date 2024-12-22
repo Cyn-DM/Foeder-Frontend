@@ -6,9 +6,12 @@ import {Link} from "react-router-dom";
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
-  const {setAccessTokenFromRefresh, axiosInstance} = UseAuth();
+  const {setAccessTokenFromRefresh, axiosInstance, household} = UseAuth();
+
+
+
   useEffect(() => {
-      axiosInstance.get('/Recipe')
+      axiosInstance.get(`/Recipe?householdId=${household.id}`)
       .then((response) => {setRecipes(response.data)})
       .catch((error) => {
         if (error.response && error.response.status === 401) {
