@@ -50,3 +50,7 @@ body, html{
     border: 1px solid darkgray;
 }
 
+.recipe-image {
+    width: 300px;
+}
+

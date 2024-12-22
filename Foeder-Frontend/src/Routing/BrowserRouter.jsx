@@ -1,6 +1,4 @@
-import {
-    createBrowserRouter,
-} from "react-router-dom";
+import {createBrowserRouter,} from "react-router-dom";
 import Root from "../Components/LayoutComponents.jsx"
 import IndexPage from "../Components/Index.jsx"
 import Recipes from "../Components/Recipes.jsx"
@@ -10,6 +8,7 @@ import Household from "../Components/Household.jsx";
 import InviteUser from "../Components/InviteUser.jsx";
 import Invites from "../Components/Invites.jsx";
 import AddRecipe from "../Components/AddRecipe.jsx";
+import {Recipe} from "../Components/Recipe.jsx";
 
 const router = createBrowserRouter([
     {
@@ -47,6 +46,14 @@ const router = createBrowserRouter([
             {
                 path: "add-recipe",
                 element: <AddRecipe />
+            },
+            {
+                path: "recipe/:id",
+                element: <Recipe />
+            },
+            {
+                path: "recipe",
+                element: <Recipe />
             }
         ]
     }
