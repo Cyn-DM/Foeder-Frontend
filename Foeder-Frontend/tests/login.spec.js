@@ -15,7 +15,7 @@ chromium.use(stealthPlugin);
 const foederLoginEmail = process.env.foederLoginEmail;
 const foederLoginPassword = process.env.foederLoginPass;
 
-test.describe("With stealth plugin", () => {
+test.describe.serial("With stealth plugin", () => {
     test.use({ignoreHTTPSErrors: true});
 
     test('login', async () => {
@@ -49,21 +49,48 @@ test.describe("With stealth plugin", () => {
 
     });
 
+    test('add-recipe', async () => {
+
+        const browser = await chromium.launch({headless: true});
+
+        const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
+        const page = await context.newPage();
+        await page.waitForTimeout(1000);
+        await loginFoeder(page, foederLoginPassword);
+        await page.waitForTimeout(2000);
+        await page.getByRole('link', { name: 'Recipes' }).click();
+        await page.getByRole('button', { name: 'Add Recipe' }).click();
+        await page.getByPlaceholder('Title').click();
+        await page.getByPlaceholder('Title').fill('Spaghetti Bolognese');
+        await page.getByPlaceholder('Description').click();
+        await page.getByPlaceholder('Description').fill('Spaghetti');
+        await page.getByRole('button', { name: 'Add an ingredient' }).click();
+        await page.getByPlaceholder('Ingredient').fill('Spaghetti');
+        await page.getByPlaceholder('Amount').click();
+        await page.getByPlaceholder('Amount').fill('6 sticks');
+        await page.getByRole('button', { name: 'Add a step' }).click();
+        await page.getByPlaceholder('Step').fill('Cook the spaghetti');
+        await page.getByRole('button', { name: 'Save' }).click();
+        await expect(page.getByText('Successfully added recipe.')).toBeVisible();
+    })
+    
     test('view-recipes', async () => {
 
         const browser = await chromium.launch({headless: true});
 
-            const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
-            const page = await context.newPage();
-            await page.waitForTimeout(1000);
-            await loginFoeder(page, foederLoginPassword);
-            await page.waitForTimeout(2000);
-            await page.getByRole('link', {name: 'Recipes'}).click();
-            await page.waitForSelector(':has-text("Spaghetti Bolognese")');
-            await expect(page.getByText('Spaghetti Bolognese', {exact: true})).toBeVisible();
-            await browser.close()
+        const context = await browser.newContext({storageState: 'auth.json', ignoreHTTPSErrors: true});
+        const page = await context.newPage();
+        await page.waitForTimeout(1000);
+        await loginFoeder(page, foederLoginPassword);
+        await page.waitForTimeout(2000);
+        await page.getByRole('link', {name: 'Recipes'}).click();
+        await page.waitForSelector(':has-text("Spaghetti Bolognese")');
+        await expect(page.getByRole('link', { name: 'Spaghetti Bolognese' }).first()).toBeVisible();
+        await browser.close()
 
     })
+
+
 
 /*    test('manual-test-login', async () => {
         await chromium.launch({headless: false}).then(async browser => {
@@ -96,5 +123,8 @@ test.describe("With stealth plugin", () => {
 
 })
 
+test.describe.serial("Recipes", async () => {
+
+})
 
 
