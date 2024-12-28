@@ -9,6 +9,7 @@ import InviteUser from "../Components/InviteUser.jsx";
 import Invites from "../Components/Invites.jsx";
 import AddRecipe from "../Components/AddRecipe.jsx";
 import {Recipe} from "../Components/Recipe.jsx";
+import EditRecipe from "../Components/EditRecipe.jsx";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: "recipe",
                 element: <Recipe />
+            },
+            {
+                path: "edit-recipe/:id",
+                element: <EditRecipe />
             }
         ]
     }
