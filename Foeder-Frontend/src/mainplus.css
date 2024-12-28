@@ -1183,11 +1183,6 @@ html {
   animation: button-pop var(--animation-btn, 0.25s) ease-out;
 }
 
-.form-control {
-  display: flex;
-  flex-direction: column;
-}
-
 .label {
   display: flex;
   -webkit-user-select: none;
@@ -2489,6 +2484,16 @@ details.collapse summary::-webkit-details-marker {
   line-height: 2;
 }
 
+.textarea-lg {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  line-height: 2;
+}
+
 :where(.toast) {
   bottom: 0px;
   inset-inline-end: 0px;
@@ -2753,10 +2758,6 @@ details.collapse summary::-webkit-details-marker {
   display: none;
 }
 
-.aspect-square {
-  aspect-ratio: 1 / 1;
-}
-
 .h-12 {
   height: 3rem;
 }
@@ -2777,12 +2778,12 @@ details.collapse summary::-webkit-details-marker {
   height: 100vh;
 }
 
-.min-h-0 {
-  min-height: 0px;
+.h-full {
+  height: 100%;
 }
 
-.min-h-screen {
-  min-height: 100vh;
+.min-h-0 {
+  min-height: 0px;
 }
 
 .w-28 {
@@ -2807,15 +2808,6 @@ details.collapse summary::-webkit-details-marker {
 
 .w-72 {
   width: 18rem;
-}
-
-.w-\[80\%\] {
-  width: 80%;
-}
-
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
 }
 
 .w-full {
@@ -2858,20 +2850,12 @@ details.collapse summary::-webkit-details-marker {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-col {
   flex-direction: column;
 }
 
 .flex-wrap {
   flex-wrap: wrap;
-}
-
-.flex-wrap-reverse {
-  flex-wrap: wrap-reverse;
 }
 
 .items-center {
@@ -2898,10 +2882,6 @@ details.collapse summary::-webkit-details-marker {
   gap: 1.25rem;
 }
 
-.gap-8 {
-  gap: 2rem;
-}
-
 .gap-y-10 {
   row-gap: 2.5rem;
 }
@@ -2910,16 +2890,8 @@ details.collapse summary::-webkit-details-marker {
   overflow: hidden;
 }
 
-.overflow-visible {
-  overflow: visible;
-}
-
 .overflow-x-auto {
   overflow-x: auto;
-}
-
-.overflow-y-auto {
-  overflow-y: auto;
 }
 
 .whitespace-nowrap {
@@ -2932,10 +2904,6 @@ details.collapse summary::-webkit-details-marker {
 
 .rounded-box {
   border-radius: var(--rounded-box, 1rem);
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
 }
 
 .border-b {
@@ -2971,11 +2939,6 @@ details.collapse summary::-webkit-details-marker {
   background-color: var(--fallback-s,oklch(var(--s)/var(--tw-bg-opacity, 1)));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
 .stroke-current {
   stroke: currentColor;
 }
@@ -2986,10 +2949,6 @@ details.collapse summary::-webkit-details-marker {
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-8 {
-  padding: 2rem;
 }
 
 .px-4 {
@@ -3010,10 +2969,6 @@ details.collapse summary::-webkit-details-marker {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
 }
 
 .pt-4 {
@@ -3222,6 +3177,29 @@ body, html{
   margin-inline: auto;
 }
 
+.add-recipe-container {
+  display: grid;
+  gap: 1rem;
+  width: min(95%, 70rem);
+  margin-inline: auto;
+}
+
+.add-recipe-title-desc-container {
+  grid-area: one;
+}
+
+.add-recipe-title {
+  font-family: "Abril Fatface", serif;
+  font-size: 2rem;
+  border-bottom: 2px lightgrey solid;
+}
+
+.add-recipe-description {
+  font-family: "Abril Fatface", serif;
+  font-size: 2rem;
+  border-bottom: 2px lightgrey solid;
+}
+
 .recipe-title-desc-container {
   grid-area: one;
 }
@@ -3244,6 +3222,26 @@ body, html{
   padding: 0;
 }
 
+.add-recipe-image-container {
+  grid-area: two;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid darkgray;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.add-recipe-image-buttons-container {
+  grid-area: three;
+}
+
+.add-ingredients-container {
+  grid-area: four;
+}
+
 .ingredients-container {
   grid-area: three;
 }
@@ -3258,10 +3256,18 @@ body, html{
   grid-area: four;
 }
 
+.add-steps-container {
+  grid-area: five;
+}
+
 .step-header {
   font-family: "Abril Fatface", serif;
   font-size: 2rem;
   border-bottom: 2px lightgrey solid;
+}
+
+.add-recipe-save-container {
+  grid-area: six;
 }
 
 .table-grey {
@@ -3311,6 +3317,18 @@ ol li::before {
         'four';
     padding-block: 1rem;
   }
+
+  .add-recipe-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        'two'
+        'three'
+        'one'
+        'four'
+        'five'
+        'six';
+    padding-block: 1rem;
+  }
 }
 
 /* Small (Larger Phones) */
@@ -3327,6 +3345,18 @@ ol li::before {
     'one one two'
     'three three three'
     'four four four';
+    padding-block: 2rem;
+  }
+
+  .add-recipe-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    'one one two'
+    'one one two'
+    'one one three'
+    'four four four'
+    'five five five'
+    'empty empty six';
     padding-block: 2rem;
   }
 }
