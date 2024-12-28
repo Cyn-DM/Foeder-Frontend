@@ -54,3 +54,139 @@ body, html{
     width: 300px;
 }
 
+.recipe-part-card {
+    background-color: #F2F4EB;
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.recipe-container {
+    display: grid;
+
+    gap: 1rem;
+    width: min(95%, 70rem);
+    margin-inline: auto;
+
+}
+
+.recipe-title-desc-container {
+    grid-area: one;
+}
+
+.recipe-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2rem;
+    border-bottom: 2px lightgrey solid;
+}
+
+
+.recipe-image-container {
+    grid-area: two;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid darkgray;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.ingredients-container {
+    grid-area: three;
+}
+
+.ingredient-header {
+    font-family: "Abril Fatface", serif;
+    font-size: 2rem;
+    border-bottom: 2px lightgrey solid;
+}
+
+.steps-container {
+    grid-area: four;
+}
+
+.step-header {
+    font-family: "Abril Fatface", serif;
+    font-size: 2rem;
+    border-bottom: 2px lightgrey solid;
+}
+
+.table-grey {
+    background-color: lightgray;
+}
+
+ol {
+    counter-reset: item;
+    list-style: none;
+    padding-left: 0;
+}
+
+ol li {
+    position: relative;
+    margin-bottom: 25px;
+    padding-left: 40px;
+}
+
+ol li::before {
+    content: counter(item);
+    counter-increment: item;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: #6D9B49;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Extra Small (Phones) */
+@media (max-width: 576px) {
+    .recipe-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        'two'
+        'one'
+        'three'
+        'four';
+        padding-block: 1rem;
+    }
+}
+
+/* Small (Larger Phones) */
+@media (min-width: 576px) {
+    
+}
+
+/* Medium (Tablets) */
+@media (min-width: 768px) {
+    .recipe-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+    'one one two'
+    'three three three'
+    'four four four';
+        padding-block: 2rem;
+    }
+    
+}
+
+/* Large (Laptops) */
+@media (min-width: 992px) {
+
+}
+
+/* Extra Large (Desktops) */
+@media (min-width: 1200px) {
+
+}

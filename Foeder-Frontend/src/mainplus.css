@@ -626,8 +626,7 @@ html {
 
 :root {
   --p: 87.6743% 0.017143 88.007785;
-  --b2: 89.5736% 0.01123 116.807269;
-  --b3: 82.8315% 0.010384 116.807269;
+  --b3: 83.9459% 0.011411 116.826391;
   --su: 64.8% 0.150 160;
   --wa: 84.71% 0.199 83.87;
   --er: 71.76% 0.221 22.18;
@@ -653,6 +652,7 @@ html {
   --a: 63.7304% 0.123048 133.073609;
   --n: 30.8672% 0.036541 112.772577;
   --b1: 96.3157% 0.012075 116.807269;
+  --b2: 90.2644% 0.01227 116.826391;
   --in: 94.8471% 0.049609 107.309275;
 }
 
@@ -1367,6 +1367,15 @@ html {
 .navbar-end {
   width: 50%;
   justify-content: flex-end;
+}
+
+.steps {
+  display: inline-grid;
+  grid-auto-flow: column;
+  overflow: hidden;
+  overflow-x: auto;
+  counter-reset: step;
+  grid-auto-columns: 1fr;
 }
 
 .steps .step {
@@ -2190,6 +2199,86 @@ details.collapse summary::-webkit-details-marker {
   content: attr(data-content);
 }
 
+.steps .step-neutral + .step-neutral:before,
+  .steps .step-neutral:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+}
+
+.steps .step-primary + .step-primary:before,
+  .steps .step-primary:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
+}
+
+.steps .step-secondary + .step-secondary:before,
+  .steps .step-secondary:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-s,oklch(var(--s)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
+}
+
+.steps .step-accent + .step-accent:before,
+  .steps .step-accent:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
+}
+
+.steps .step-info + .step-info:before {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-in,oklch(var(--in)/var(--tw-bg-opacity)));
+}
+
+.steps .step-info:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-in,oklch(var(--in)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
+}
+
+.steps .step-success + .step-success:before {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-su,oklch(var(--su)/var(--tw-bg-opacity)));
+}
+
+.steps .step-success:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-su,oklch(var(--su)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
+}
+
+.steps .step-warning + .step-warning:before {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
+}
+
+.steps .step-warning:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
+}
+
+.steps .step-error + .step-error:before {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
+}
+
+.steps .step-error:after {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
+}
+
 .table:where([dir="rtl"], [dir="rtl"] *) {
   text-align: right;
 }
@@ -2616,8 +2705,8 @@ details.collapse summary::-webkit-details-marker {
   margin-bottom: 1rem;
 }
 
-.mb-5 {
-  margin-bottom: 1.25rem;
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
 .mb-8 {
@@ -2733,6 +2822,10 @@ details.collapse summary::-webkit-details-marker {
   width: 100%;
 }
 
+.min-w-full {
+  min-width: 100%;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -2757,6 +2850,10 @@ details.collapse summary::-webkit-details-marker {
   flex-grow: 1;
 }
 
+.basis-20 {
+  flex-basis: 5rem;
+}
+
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
@@ -2779,10 +2876,6 @@ details.collapse summary::-webkit-details-marker {
 
 .items-center {
   align-items: center;
-}
-
-.justify-between {
-  justify-content: space-between;
 }
 
 .gap-0 {
@@ -2821,8 +2914,16 @@ details.collapse summary::-webkit-details-marker {
   overflow: visible;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .whitespace-pre-wrap {
@@ -2835,6 +2936,14 @@ details.collapse summary::-webkit-details-marker {
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-b-2 {
+  border-bottom-width: 2px;
 }
 
 .bg-accent {
@@ -2883,10 +2992,6 @@ details.collapse summary::-webkit-details-marker {
   padding: 2rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -2895,6 +3000,11 @@ details.collapse summary::-webkit-details-marker {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .py-8 {
@@ -2912,6 +3022,10 @@ details.collapse summary::-webkit-details-marker {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -2958,17 +3072,20 @@ details.collapse summary::-webkit-details-marker {
   line-height: 1rem;
 }
 
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
 .font-bold {
   font-weight: 700;
 }
 
 .font-medium {
   font-weight: 500;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
 }
 
 .text-base-100 {
@@ -3089,6 +3206,141 @@ body, html{
   width: 300px;
 }
 
+.recipe-part-card {
+  background-color: #F2F4EB;
+  border-radius: 8px;
+  padding: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.recipe-container {
+  display: grid;
+  gap: 1rem;
+  width: min(95%, 70rem);
+  margin-inline: auto;
+}
+
+.recipe-title-desc-container {
+  grid-area: one;
+}
+
+.recipe-title {
+  font-family: "Abril Fatface", serif;
+  font-size: 2rem;
+  border-bottom: 2px lightgrey solid;
+}
+
+.recipe-image-container {
+  grid-area: two;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid darkgray;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.ingredients-container {
+  grid-area: three;
+}
+
+.ingredient-header {
+  font-family: "Abril Fatface", serif;
+  font-size: 2rem;
+  border-bottom: 2px lightgrey solid;
+}
+
+.steps-container {
+  grid-area: four;
+}
+
+.step-header {
+  font-family: "Abril Fatface", serif;
+  font-size: 2rem;
+  border-bottom: 2px lightgrey solid;
+}
+
+.table-grey {
+  background-color: lightgray;
+}
+
+ol {
+  counter-reset: item;
+  list-style: none;
+  padding-left: 0;
+}
+
+ol li {
+  position: relative;
+  margin-bottom: 25px;
+  padding-left: 40px;
+}
+
+ol li::before {
+  content: counter(item);
+  counter-increment: item;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: #6D9B49;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Extra Small (Phones) */
+
+@media (max-width: 576px) {
+  .recipe-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        'two'
+        'one'
+        'three'
+        'four';
+    padding-block: 1rem;
+  }
+}
+
+/* Small (Larger Phones) */
+
+@media (min-width: 576px) {
+}
+
+/* Medium (Tablets) */
+
+@media (min-width: 768px) {
+  .recipe-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    'one one two'
+    'three three three'
+    'four four four';
+    padding-block: 2rem;
+  }
+}
+
+/* Large (Laptops) */
+
+@media (min-width: 992px) {
+}
+
+/* Extra Large (Desktops) */
+
+@media (min-width: 1200px) {
+}
+
 @media (min-width: 768px) {
   .md\:input-lg[type="number"]::-webkit-inner-spin-button {
     margin-top: -1.5rem;
@@ -3104,7 +3356,14 @@ body, html{
     line-height: 1.75rem;
     line-height: 2;
   }
+}
 
+.hover\:bg-base-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity, 1)));
+}
+
+@media (min-width: 768px) {
   .md\:col-span-3 {
     grid-column: span 3 / span 3;
   }
@@ -3203,4 +3462,3 @@ body, html{
     max-width: 80rem;
   }
 }
-
