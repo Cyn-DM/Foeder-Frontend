@@ -65,11 +65,32 @@ body, html{
 
 .recipe-container {
     display: grid;
-
     gap: 1rem;
     width: min(95%, 70rem);
     margin-inline: auto;
+}
 
+.add-recipe-container {
+    display: grid;
+    gap: 1rem;
+    width: min(95%, 70rem);
+    margin-inline: auto;
+}
+
+.add-recipe-title-desc-container {
+    grid-area: one;
+}
+
+.add-recipe-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2rem;
+    border-bottom: 2px lightgrey solid;
+}
+
+.add-recipe-description {
+    font-family: "Abril Fatface", serif;
+    font-size: 2rem;
+    border-bottom: 2px lightgrey solid;
 }
 
 .recipe-title-desc-container {
@@ -82,7 +103,6 @@ body, html{
     border-bottom: 2px lightgrey solid;
 }
 
-
 .recipe-image-container {
     grid-area: two;
     overflow: hidden;
@@ -93,6 +113,26 @@ body, html{
     justify-content: center;
     align-items: center;
     padding: 0;
+}
+
+.add-recipe-image-container {
+    grid-area: two;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid darkgray;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.add-recipe-image-buttons-container {
+    grid-area: three;
+}
+
+.add-ingredients-container {
+    grid-area: four;
 }
 
 .ingredients-container {
@@ -109,11 +149,20 @@ body, html{
     grid-area: four;
 }
 
+.add-steps-container {
+    grid-area: five;
+}
+
 .step-header {
     font-family: "Abril Fatface", serif;
     font-size: 2rem;
     border-bottom: 2px lightgrey solid;
 }
+
+.add-recipe-save-container {
+    grid-area: six;
+}
+
 
 .table-grey {
     background-color: lightgray;
@@ -161,8 +210,19 @@ ol li::before {
         'four';
         padding-block: 1rem;
     }
-}
 
+    .add-recipe-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        'two'
+        'three'
+        'one'
+        'four'
+        'five'
+        'six';
+        padding-block: 1rem;
+    }
+}
 /* Small (Larger Phones) */
 @media (min-width: 576px) {
     
@@ -176,6 +236,18 @@ ol li::before {
     'one one two'
     'three three three'
     'four four four';
+        padding-block: 2rem;
+    }
+
+    .add-recipe-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+    'one one two'
+    'one one two'
+    'one one three'
+    'four four four'
+    'five five five'
+    'empty empty six';
         padding-block: 2rem;
     }
     
