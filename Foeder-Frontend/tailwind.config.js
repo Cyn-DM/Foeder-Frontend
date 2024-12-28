@@ -20,6 +20,7 @@ export default {
 
 					  
 				"base-100": "#F2F4EB",
+			  	"base-200": "#dee0d7",
 					  
 				"info": "#F1F1CB",
 		  },

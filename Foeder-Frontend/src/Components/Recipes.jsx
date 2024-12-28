@@ -75,8 +75,8 @@ const ClickableCard = ({recipe}) => {
             <Link to={`/recipe/${recipe.id}`} className="block">
                 <figure>
                     <img
-                        src="/src/img/food.jpg"
-                        alt="Recipe picture"/>
+                        src="/img/food.jpg"
+                        alt="Recipe"/>
                 </figure>
                 <div className="card-body items-center text-center">
                     <div className="card-title text-sm md:text-lg">
