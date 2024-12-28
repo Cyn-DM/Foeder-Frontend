@@ -2,9 +2,11 @@ import {useState} from "react";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 import {Bounce, toast, ToastContainer} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export default function AddRecipe(){
     const {axiosInstance, household} = UseAuth();
+    const nav = useNavigate();
 
     const { register, control, handleSubmit, formState: { errors },} = useForm();
     const { fields: fieldsStep, append : appendStep, remove: removeStep } = useFieldArray( {control, name: "Steps", rules: { required: "Please fill in at least one step."}});
@@ -22,7 +24,7 @@ export default function AddRecipe(){
 
         axiosInstance.post("/Recipe/AddRecipe", data)
             .then(() => {
-                toast.success('Successfully added recipe.');
+                toast.success('Successfully added recipe.',{onClose: () => nav('/recipes')});
             })
             .catch((error) => {
             console.log(error);

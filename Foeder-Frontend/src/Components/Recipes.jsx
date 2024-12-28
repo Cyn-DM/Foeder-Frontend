@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { useEffect } from 'react';
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {Link} from "react-router-dom";
+import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
-  const {setAccessTokenFromRefresh, axiosInstance, household} = UseAuth();
+  const {axiosInstance, household} = UseAuth();
 
 
 
@@ -14,9 +15,7 @@ export default function RecipeList() {
       axiosInstance.get(`/Recipe?householdId=${household.id}`)
       .then((response) => {setRecipes(response.data)})
       .catch((error) => {
-        if (error.response && error.response.status === 401) {
-            setAccessTokenFromRefresh;
-        }
+        toast(error.message)
       });
   }
     , []
@@ -25,19 +24,20 @@ export default function RecipeList() {
 
 
   return (
-      // <div className='lg:border lg:border-gray-300 mt-8 p-6 max-w-3xl xl:max-w-4xl 2xl:max-w-7xl mx-auto'>
-      //   <table className='table'>
-      //     <thead>
-      //       <tr className='bg-secondary'>
-      //         <th className='text-2xl text-secondary-content'>Recipe</th>
-      //       </tr>
-      //     </thead>
-      //     <tbody>
-
-      //     </tbody>
-      //   </table>
-      // </div>
     <>
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+        />
         <div className="relative mx-auto flex gap-5 px-6 xl:px-96">
             <div className="flex flex-col col-span-12 pt-4">
                 <p className="inter-mainFont font-medium text-4xl">

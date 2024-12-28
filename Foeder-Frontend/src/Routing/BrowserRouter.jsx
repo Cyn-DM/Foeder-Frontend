@@ -10,59 +10,60 @@ import Invites from "../Components/Invites.jsx";
 import AddRecipe from "../Components/AddRecipe.jsx";
 import {Recipe} from "../Components/Recipe.jsx";
 import EditRecipe from "../Components/EditRecipe.jsx";
+import {ProtectedRoute} from "./AuthLink.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root/>,
+        element: <Root />,
         children: [
             {
                 index: true,
-                element: <IndexPage />
+                element: <IndexPage />,
             },
             {
                 path: "recipes",
-                element: <Recipes />
+                element: <ProtectedRoute element={<Recipes />} />,
             },
             {
                 path: "unauthorized",
-                element: <Unauthorized />
+                element: <Unauthorized />,
             },
             {
                 path: "household",
-                element: <Household />
+                element: <ProtectedRoute element={<Household />} />,
             },
             {
                 path: "create-household",
-                element: <CreateHousehold />
+                element: <ProtectedRoute element={<CreateHousehold />} />,
             },
             {
                 path: "invite-user",
-                element: <InviteUser />
+                element: <ProtectedRoute element={<InviteUser />} />,
             },
             {
                 path: "invites",
-                element: <Invites />
+                element: <ProtectedRoute element={<Invites />} />,
             },
             {
                 path: "add-recipe",
-                element: <AddRecipe />
+                element: <ProtectedRoute element={<AddRecipe />} />,
             },
             {
                 path: "recipe/:id",
-                element: <Recipe />
+                element: <ProtectedRoute element={<Recipe />} />,
             },
             {
                 path: "recipe",
-                element: <Recipe />
+                element: <ProtectedRoute element={<Recipe />} />,
             },
             {
                 path: "edit-recipe/:id",
-                element: <EditRecipe />
-            }
-        ]
-    }
+                element: <ProtectedRoute element={<EditRecipe />} />,
+            },
+        ],
+    },
+]);
 
-])
 
 export default router;

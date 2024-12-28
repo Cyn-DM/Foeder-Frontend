@@ -135,7 +135,7 @@ export function AuthProvider({children})
     const clearRefreshToken = () => {
         const skipIntercept = axios.create();
         skipIntercept.defaults.baseURL = backendUrl;
-        skipIntercept.withCredentials = true;
+        skipIntercept.defaults.withCredentials = true;
         skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
     }
 

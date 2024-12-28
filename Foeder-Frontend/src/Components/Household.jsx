@@ -1,16 +1,18 @@
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
-import {useEffect, useState} from "react";
-import {ContentWrapper} from "./LayoutComponents.jsx";
-import {Link} from "react-router-dom";
+import {useEffect} from "react";
+import {Link, useNavigation} from "react-router-dom";
 import InviteAlert from "./InviteAlert.jsx";
-import SuccessAlert from "./SuccessAlert.jsx";
+import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export default function Household(){
     const { household, hasInvites, GetInvites, setHousehold, GetHousehold, user, axiosInstance} = UseAuth();
-    const [successMessage, setSuccessMessage] = useState(null);
+    const nav = useNavigation();
 
     useEffect(() => {
         GetInvites();
+        if (hasInvites === true) {
+            toast(<InviteAlert hasInvites={hasInvites}/>)
+        }
         GetHousehold();
     }, [])
 
@@ -19,39 +21,45 @@ export default function Household(){
             if (response.status === 200){
                 setHousehold(null);
 
-                setSuccessMessage("You have successfully left the household.");
-
-                setTimeout(() => {
-                    setSuccessMessage(null);
-                }, 5000)
+                toast.success("You have successfully left the household.", {onClose: () => nav('/household')});
             }
         })
             .catch((error) => {
-                console.log(error);
+                toast.error(error.message)
             })
     }
 
 
     if (household === null){
         return (
-            <div className="grid grid-cols-12 mx-auto mt-8 px-6 md:px-20 xl:px-72 gap-5">
-                <div className="col-span-12">
-                    <SuccessAlert successMessage={successMessage} />
-                    <InviteAlert hasInvites={hasInvites}/>
-                </div>
-
-                <div className="col-span-12 md:col-span-6">
-                    <div className="inter-mainFont font-bold text-5xl">
-                        Household overview page
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition={Bounce}
+                />
+                <div className="grid grid-cols-12 mx-auto mt-8 px-6 md:px-20 xl:px-72 gap-5">
+                    <div className="col-span-12 md:col-span-6">
+                        <div className="inter-mainFont font-bold text-5xl">
+                            Household overview page
+                        </div>
+                        <div className="col-span-12 flex flex-wrap gap-5">
+                            <HouseholdName name={"Please create or join a household."}/>
+                            <Link to="/create-household"
+                                  className="btn btn-accent shadow-lg btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create
+                                a household</Link>
+                        </div>
                     </div>
-                    <div className="col-span-12 flex flex-wrap gap-5">
-                        <HouseholdName name={"Please create or join a household."}/>
-                        <Link to="/create-household"
-                            className="btn btn-accent shadow-lg btn-main btn-sm flex-none px-4 mt-3 text-white inter-mainFont">Create
-                            a household</Link>
-                    </div>
                 </div>
-            </div>
+            </>
 
 
         )
