@@ -2484,16 +2484,6 @@ details.collapse summary::-webkit-details-marker {
   line-height: 2;
 }
 
-.textarea-lg {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  line-height: 2;
-}
-
 :where(.toast) {
   bottom: 0px;
   inset-inline-end: 0px;
@@ -2776,10 +2766,6 @@ details.collapse summary::-webkit-details-marker {
 
 .h-\[100vh\] {
   height: 100vh;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .min-h-0 {
@@ -3202,6 +3188,7 @@ body, html{
 
 .recipe-title-desc-container {
   grid-area: one;
+  position: relative;
 }
 
 .recipe-title {
@@ -3303,6 +3290,13 @@ ol li::before {
   justify-content: center;
   font-size: 1rem;
   font-weight: bold;
+}
+
+.recipe-button-container {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  top: 10px;
 }
 
 /* Extra Small (Phones) */

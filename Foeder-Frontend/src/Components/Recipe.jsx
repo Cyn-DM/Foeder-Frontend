@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
@@ -29,6 +29,9 @@ export function Recipe() {
                     <div className="recipe-description">
                         {recipe.description}
                     </div>
+                    <div className="recipe-button-container">
+                        <Link to={`/edit-recipe/${recipe.id}`}><button className="btn btn-accent btn-sm text-white">Edit</button></Link>
+                    </div>
                 </div>
                 <div className="recipe-image-container recipe-part-card">
                     <RecipeImage />
@@ -37,11 +40,8 @@ export function Recipe() {
                     <div className="ingredient-header mb-6">
                         Ingredients
                     </div>
-
                     <div className="overflow-x-auto bg-base-100 ">
-
                         <table className="min-w-full text-left text-sm whitespace-nowrap">
-
                             <thead className="uppercase tracking-wider border-b-2 ">
                             <tr>
                                 <th scope="col" className="px-6 py-4">
@@ -52,7 +52,6 @@ export function Recipe() {
                                 </th>
                             </tr>
                             </thead>
-
                             <tbody>
                             {recipe.ingredients.map((ingredient) => (
                                     <tr key={ingredient} className="border-b hover:bg-base-200 ">
@@ -63,12 +62,8 @@ export function Recipe() {
                                     </tr>
                                 )
                             )}
-
-
                             </tbody>
-
                         </table>
-
                     </div>
 
                 </div>
