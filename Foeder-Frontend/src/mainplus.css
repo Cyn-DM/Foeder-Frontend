@@ -2937,6 +2937,10 @@ details.collapse summary::-webkit-details-marker {
   padding: 1.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -3297,6 +3301,8 @@ ol li::before {
   display: flex;
   right: 10px;
   top: 10px;
+  -moz-column-gap: 6px;
+       column-gap: 6px;
 }
 
 /* Extra Small (Phones) */

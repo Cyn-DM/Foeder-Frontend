@@ -205,6 +205,7 @@ ol li::before {
     display: flex;
     right: 10px;
     top: 10px;
+    column-gap: 6px;
 }
 
 /* Extra Small (Phones) */
