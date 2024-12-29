@@ -23,7 +23,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes",
-                element: <ProtectedRoute element={<Recipes />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<Recipes />} />,
             },
             {
                 path: "unauthorized",
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "invite-user",
-                element: <ProtectedRoute element={<InviteUser />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<InviteUser />} />,
             },
             {
                 path: "invites",
@@ -47,19 +47,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "add-recipe",
-                element: <ProtectedRoute element={<AddRecipe />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<AddRecipe />} />,
             },
             {
                 path: "recipe/:id",
-                element: <ProtectedRoute element={<Recipe />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<Recipe />} />,
             },
             {
                 path: "recipe",
-                element: <ProtectedRoute element={<Recipe />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<Recipe />} />,
             },
             {
                 path: "edit-recipe/:id",
-                element: <ProtectedRoute element={<EditRecipe />} />,
+                element: <ProtectedRoute householdWrapper={true} element={<EditRecipe />} />,
             },
         ],
     },

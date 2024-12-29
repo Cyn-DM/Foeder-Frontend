@@ -5,7 +5,5 @@ import router from "./Routing/BrowserRouter.jsx";
 import './mainplus.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
 )

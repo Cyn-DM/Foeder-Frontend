@@ -1,7 +1,7 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
-import {Unauthorized} from "../Components/Unauthorized.jsx";
+
 
 
 export function AuthLink ({isAuthenticated, url, name}) {
@@ -17,10 +17,26 @@ export function AuthLink ({isAuthenticated, url, name}) {
     return <Link to={url}>{name}</Link>
 }
 
-export function ProtectedRoute({ element }) {
-    const nav = useNavigate()
-    const { isAuthenticated } = UseAuth();
+export function HouseholdWrapper({household, element}) {
+    if (!household) {
+        return null;
+    }
+    return element;
+}
+
+export function ProtectedRoute({ element, householdWrapper }) {
+    const { isAuthenticated , household} = UseAuth();
+    if (!isAuthenticated) {
+        console.log("it reaches not authenticated")
+        return <Navigate to="/unauthorized" replace />
+    }
     
-    if (!isAuthenticated) {nav('/unauthorized');}
+    if (householdWrapper){
+        if (!household){
+            console.log("it reaches here.")
+            return <Navigate to="/household" replace />
+        }
+    }
+    
     return element;
 }

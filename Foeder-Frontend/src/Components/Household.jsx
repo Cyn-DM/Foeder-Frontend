@@ -1,6 +1,6 @@
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 import {useEffect} from "react";
-import {Link, useNavigation} from "react-router-dom";
+import {Await, Link, useNavigation} from "react-router-dom";
 import InviteAlert from "./InviteAlert.jsx";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 
@@ -9,11 +9,18 @@ export default function Household(){
     const nav = useNavigation();
 
     useEffect(() => {
-        GetInvites();
-        if (hasInvites === true) {
-            toast(<InviteAlert hasInvites={hasInvites}/>)
-        }
+        GetInvites().then(() => {
+                if (hasInvites === true) {
+                toast.info(<InviteAlert/>, {autoClose: false, closeButton: true})
+                }
+            }
+        )
+            .catch((error) => {
+                toast.error(error);
+            });
         GetHousehold();
+        
+        
     }, [])
 
     function handleLeave(){

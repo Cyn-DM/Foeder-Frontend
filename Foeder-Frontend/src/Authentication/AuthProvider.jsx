@@ -56,7 +56,7 @@ export function AuthProvider({children})
 
     const GetInvites = () => {
         const userId = user.id;
-        axiosInstance.get(`/HouseholdInvite/GetHouseholdInvites?userId=${userId}` )
+        return axiosInstance.get(`/HouseholdInvite/GetHouseholdInvites?userId=${userId}` )
             .then((response) => {
                 console.log(response.data);
                 setInvites(response.data);
@@ -64,10 +64,12 @@ export function AuthProvider({children})
                 const hasPendingInvites = response.data.some((invite) => invite.isAccepted === null);
 
                 setHasInvites(hasPendingInvites);
+                
+                return response.data;
 
             })
             .catch((error) => {
-                console.log(error);
+                return error.message;
             })
     }
     axiosInstance.interceptors.request.use(
@@ -144,12 +146,23 @@ export function AuthProvider({children})
     }
 
     const logout = () => {
-        setUser(null);
-        setIsAuthenticated(false);
+        if (user){
+            setUser(null);
+        }
+        if (isAuthenticated){
+            setIsAuthenticated(false);
+        }
+        if (household){
+            clearHousehold();
+        }
+        
         clearAccessToken();
         clearRefreshToken();
-        clearHousehold();
-        navigator("/")
+        const isOnUnauthorized = location.pathname === "/unauthorized";
+        
+        if (!isOnUnauthorized){
+            navigator("/")
+        }
     }
 
     const getAccessToken = () => {
