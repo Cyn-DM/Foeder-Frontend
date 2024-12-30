@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import  axios  from "axios";
+import {UseContext} from "./ContextProvider.jsx";
 import {UseAuth} from "./AuthProvider.jsx";
 
 export function GoogleAuth(){
     const [scriptLoaded, setScriptLoaded] = useState(false);
-    const {isAuthenticated, handleCredentialResponse} = UseAuth();
+    const {isAuthenticated} = UseContext();
+    const { handleCredentialResponse } = UseAuth();
+    
 
 
     useEffect(() => {

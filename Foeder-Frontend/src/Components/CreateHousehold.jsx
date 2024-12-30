@@ -1,9 +1,9 @@
-import { UseAuth } from "../Authentication/AuthProvider.jsx"
+import { UseContext } from "../Authentication/ContextProvider.jsx"
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 export function CreateHousehold() {
-    const { axiosInstance } = UseAuth();
+    const { axiosInstance } = UseContext();
     const [labelText, setLabelText] = useState("")
     const navigate = useNavigate();
     function handleClick(){

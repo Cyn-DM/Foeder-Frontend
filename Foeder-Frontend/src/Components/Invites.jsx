@@ -1,10 +1,13 @@
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
-import {useEffect, useState} from "react";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {Bounce, toast, ToastContainer} from "react-toastify";
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function Invites(){
-    const { invites, GetInvites, hasInvites} = UseAuth();
-    const navigate = useNavigate();
+    const { invites, hasInvites} = UseContext();
+    const { GetInvites } = UseAuth();
+ 
 
 
 
@@ -20,23 +23,40 @@ export default function Invites(){
     )
 
     return (
-        <div className="flex flex-col mx-auto gap-5 px-6 xl:px-96 p-6 mb-8">
-            <h1 className="inter-mainFont font-bold text-4xl">
-                Invitations
-            </h1>
-            {
-                invites.map((invite) => (
-                    <InviteCard key={invite.id} invite={invite} />
-                ))
-            }
-        </div>
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+            <div className="flex flex-col mx-auto gap-5 px-6 xl:px-96 p-6 mb-8">
+                <h1 className="inter-mainFont font-bold text-4xl">
+                    Invitations
+                </h1>
+                {
+                    invites.map((invite) => (
+                        <InviteCard key={invite.id} invite={invite} toastTrigger={toast.error} toastTriggerSuccess={toast.success} />
+                    ))
+                }
+            </div>
+        </>
+       
 
 
     )
 }
 
-function InviteCard ({invite}){
-    const {axiosInstance} = UseAuth();
+function InviteCard ({invite, toastTriggerError, toastTriggerSuccess}){
+    const {axiosInstance} = UseContext();
+    const navigate = useNavigate();
 
     const handleInviteResponse = (inviteId, isAccepted) => {
         const invite =
@@ -47,11 +67,17 @@ function InviteCard ({invite}){
 
         axiosInstance.post("/HouseholdInvite/RespondToHouseholdInvite", invite).then((response) => {
             if(response.status === 200){
-                navigate("/household");
+                if (invite.isAccepted === true){
+                    toastTriggerSuccess("Successfully accepted invite.", {onClose: () => navigate("/household")})
+                }
+                if (invite.isAccepted === false){
+                    toastTriggerSuccess("Successfully denied invite.", {onClose: () => navigate("/household")})
+                }
+                
             }
         })
             .catch((error) => {
-                console.log(error);
+                toastTriggerError(error.message);
             })
     }
 

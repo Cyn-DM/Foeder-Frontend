@@ -1,5 +1,5 @@
-import {useParams} from "react-router-dom";
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {useNavigate, useParams} from "react-router-dom";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 import {useEffect, useState} from "react";
@@ -7,7 +7,8 @@ import {useEffect, useState} from "react";
 export default function EditRecipe(){
     const {id} = useParams();
     const [recipe, setRecipe] = useState(null);
-    const {axiosInstance, household} = UseAuth();
+    const nav = useNavigate();
+    const {axiosInstance, household} = UseContext();
     const { register, control, handleSubmit, formState: { errors },reset} = useForm();
     const { fields: fieldsStep, append : appendStep, remove: removeStep } = useFieldArray( {control, name: "Steps", rules: { required: "Please fill in at least one step."}});
     const { fields: fieldsIngredient, append : appendIngredient, remove: removeIngredient } = useFieldArray( {control, name: "Ingredients", rules: {required: "Please fill in at least one ingredient."} });
@@ -41,10 +42,10 @@ export default function EditRecipe(){
 
         axiosInstance.put(`/Recipe/UpdateRecipe`, data)
             .then(() => {
-                toast.success('Successfully edited recipe.');
+                toast.success('Successfully edited recipe.',{onClose: () => nav('/recipes')});
             })
             .catch((error) => {
-                console.log(error);
+                toast.error(error.message);
             })
 
     }
