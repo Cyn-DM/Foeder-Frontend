@@ -1,10 +1,10 @@
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export default function InviteUser() {
-    const {household, axiosInstance} = UseAuth();
+    const {household, axiosInstance} = UseContext();
     const nav = useNavigate();
     const [labelText, setLabelText] = useState("");
 

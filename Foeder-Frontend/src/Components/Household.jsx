@@ -1,11 +1,13 @@
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {useEffect} from "react";
-import {Await, Link, useNavigation} from "react-router-dom";
+import { Link, useNavigation} from "react-router-dom";
 import InviteAlert from "./InviteAlert.jsx";
 import {Bounce, toast, ToastContainer} from "react-toastify";
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function Household(){
-    const { household, hasInvites, GetInvites, setHousehold, GetHousehold, user, axiosInstance} = UseAuth();
+    const { household, hasInvites, setHousehold, user, axiosInstance} = UseContext();
+    const { GetHousehold, GetInvites } = UseAuth();
     const nav = useNavigation();
 
     useEffect(() => {

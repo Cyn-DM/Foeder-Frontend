@@ -1,39 +1,18 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import PropTypes from 'prop-types';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {createContext, useContext, useEffect} from "react";
+import {UseContext} from "./ContextProvider.jsx";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-const AuthContext = createContext(null)
+import {useNavigate} from "react-router-dom";
+const AuthProv = createContext(null)
 
-export function AuthProvider({children})
-{
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null);
-    const [household, setHousehold] = useState(null);
-    const [invites, setInvites] = useState(null);
-    const [hasInvites, setHasInvites] = useState(false);
+export function AuthProvider({children}) {
+    const {user, setLoading, setUser, setIsAuthenticated, isAuthenticated, household, backendUrl, setHousehold, axiosInstance, invites, setHasInvites, setInvites} = UseContext();
     const navigator = useNavigate();
-    const [reload, setReload] = useState(false);
-
-    const reloadComponent = () => {
-        setReload(prevReload => !prevReload);
-    }
-
-    let docker = false;
-    docker = Boolean(import.meta.env.VITE_DOCKER);
-    let backendUrl;
-    if (docker) {
-        backendUrl =  'https://backend:7058/api';
-    } else {
-        backendUrl =  'https://localhost:7058/api';
-    }
-    const axiosInstance = axios.create({
-        baseURL: backendUrl,
-        withCredentials: true,
-    });
-
+    
+    
     useEffect(() => {
         setAccessTokenFromRefresh()
+        setLoading(false);
     }, [])
 
     useEffect(() => {
@@ -42,6 +21,75 @@ export function AuthProvider({children})
             GetInvites();
         }
     }, [user])
+
+
+    const setAccessTokenFromRefresh = () => {
+        axios.get("/Auth/refresh", {withCredentials: true, baseURL: backendUrl}).then((response) => {
+            setAccessTokenLocalStorage(response.data);
+            const createdUser = createUser(response.data);
+            login(createdUser);
+        })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    logout();
+                }
+            })
+    }
+
+    const clearRefreshToken = () => {
+        const skipIntercept = axios.create();
+        skipIntercept.defaults.baseURL = backendUrl;
+        skipIntercept.defaults.withCredentials = true;
+        skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
+    }
+
+    const clearAccessToken = () => {
+        if (localStorage.getItem('access_token')) {
+            localStorage.removeItem("accessToken");
+        }
+    }
+
+    const setAccessTokenLocalStorage = (accessToken) => {
+        if (localStorage.getItem('access_token')) {
+            localStorage.removeItem('access_token');
+        }
+        localStorage.setItem('access_token', `Bearer ${accessToken}`);
+    }
+
+
+    const logout = () => {
+        if (user){
+            setUser(null);
+        }
+        if (isAuthenticated){
+            setIsAuthenticated(false);
+        }
+        if (household){
+            setHousehold(null);
+        }
+
+        clearAccessToken();
+        clearRefreshToken();
+        const isOnUnauthorized = location.pathname === "/unauthorized";
+
+        if (!isOnUnauthorized){
+            navigator("/")
+        }
+    }
+
+    const login = (user) => {
+        setUser(user);
+        setIsAuthenticated(true);
+    }
+
+    const createUser = (accessToken) => {
+        let userInfo = jwtDecode(accessToken);
+        return { "name" : userInfo.unique_name,
+            "id": userInfo.Id,
+            "email" : userInfo.email,
+            "householdId" : userInfo.HouseholdId ?? undefined,
+        }
+    }
 
     const GetHousehold = () => {
         const userId = user.id;
@@ -64,7 +112,7 @@ export function AuthProvider({children})
                 const hasPendingInvites = response.data.some((invite) => invite.isAccepted === null);
 
                 setHasInvites(hasPendingInvites);
-                
+
                 return response.data;
 
             })
@@ -72,6 +120,7 @@ export function AuthProvider({children})
                 return error.message;
             })
     }
+
     axiosInstance.interceptors.request.use(
         (config) => {
             const accessToken = localStorage.getItem('access_token');
@@ -106,88 +155,7 @@ export function AuthProvider({children})
             }
 
             return Promise.reject(error);
-}
-    )
-
-    AuthProvider.propTypes = {
-        children: PropTypes.any
-    }
-
-    const createUser = (accessToken) => {
-        let userInfo = jwtDecode(accessToken);
-        console.log(userInfo);
-        return { "name" : userInfo.unique_name,
-            "id": userInfo.Id,
-            "email" : userInfo.email,
-            "householdId" : userInfo.HouseholdId ?? undefined,
-        }
-    }
-
-    const login = (user) => {
-        setUser(user);
-        setIsAuthenticated(true);
-    }
-
-    const clearAccessToken = () => {
-        if (localStorage.getItem('access_token')) {
-            localStorage.removeItem("accessToken");
-        }
-    }
-
-    const clearRefreshToken = () => {
-        const skipIntercept = axios.create();
-        skipIntercept.defaults.baseURL = backendUrl;
-        skipIntercept.defaults.withCredentials = true;
-        skipIntercept.get('/Auth/logout', ).catch((error) => console.log(error));
-    }
-
-    const clearHousehold = () => {
-        setHousehold(null);
-    }
-
-    const logout = () => {
-        if (user){
-            setUser(null);
-        }
-        if (isAuthenticated){
-            setIsAuthenticated(false);
-        }
-        if (household){
-            clearHousehold();
-        }
-        
-        clearAccessToken();
-        clearRefreshToken();
-        const isOnUnauthorized = location.pathname === "/unauthorized";
-        
-        if (!isOnUnauthorized){
-            navigator("/")
-        }
-    }
-
-    const getAccessToken = () => {
-        return localStorage.getItem('access_token');
-    }
-
-    const setAccessTokenLocalStorage = (accessToken) => {
-        if (localStorage.getItem('access_token')) {
-            localStorage.removeItem('access_token');
-        }
-        localStorage.setItem('access_token', `Bearer ${accessToken}`);
-    }
-
-    const setAccessTokenFromRefresh = () => {
-        axios.get("/Auth/refresh", {withCredentials: true, baseURL: backendUrl}).then((response) => {
-            setAccessTokenLocalStorage(response.data);
-            const createdUser = createUser(response.data);
-            login(createdUser);
-        })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    logout();
-                }
-            })
-    }
+        });
 
     const handleCredentialResponse = (response) => {
         const skipIntercept = axios.create();
@@ -201,34 +169,22 @@ export function AuthProvider({children})
             login(user);
         }).catch(error => console.error('Connection error:', error));
     }
+    
+    const refreshAuth = () => {
+        setAccessTokenFromRefresh();
+    }
 
-    return (
-        <AuthContext.Provider value={{
-            isAuthenticated,
-            setIsAuthenticated,
-            user,
-            createUser,
-            login,
-            logout,
-            getAccessToken,
-            setAccessToken: setAccessTokenFromRefresh,
-            handleCredentialResponse,
-            axiosInstance,
-            household,
-            invites,
-            hasInvites,
-            GetInvites,
-            GetHousehold,
-            reloadComponent
-        }}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return (<AuthProv.Provider value={{
+        GetInvites,
+        GetHousehold,
+        handleCredentialResponse,
+        refreshAuth,
+        logout,
+    }}>
+        {children}
+    </AuthProv.Provider>);
 }
 
 export function UseAuth(){
-    return useContext(AuthContext);
+    return useContext(AuthProv);
 }
-
-
-

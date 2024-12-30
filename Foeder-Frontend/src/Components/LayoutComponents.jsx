@@ -1,35 +1,30 @@
 import {Link, Outlet} from "react-router-dom";
 import '../mainplus.css';
-import {GoogleAuth} from "../Authentication/GoogleAuth"
-import {AuthProvider, UseAuth} from "../Authentication/AuthProvider.jsx";
+import { UseContext} from "../Authentication/ContextProvider.jsx";
 import {AuthLink, HouseholdWrapper} from "../Routing/AuthLink.jsx";
+import {AuthProvider, UseAuth} from "../Authentication/AuthProvider.jsx";
 
 
 export default function Root(){
-    return ( 
-    <>
+    return (
         <AuthProvider>
             <div className="h-[100vh] overflow-hidden">
                 <Header/>
                 <div className="w-full full-screen-container">
-                    <Outlet />
+                    <Outlet/>
                 </div>
             </div>
         </AuthProvider>
-    </>
-    
-
     )
 }
 
-function Header(){
-    const {isAuthenticated, household} = UseAuth();
-
+function Header() {
+    const {isAuthenticated, household} = UseContext();
 
 
     return (
-      <div className="navbar bg-base0100 min-h-0 h-12">
-        <div className="navbar-start md:mr-4 ">
+        <div className="navbar bg-base0100 min-h-0 h-12">
+            <div className="navbar-start md:mr-4 ">
             <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-accent btn-sm lg:hidden">
               <svg

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {Link} from "react-router-dom";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export default function RecipeList() {
 
   const [recipes, setRecipes] = useState([]);
-  const {axiosInstance, household} = UseAuth();
+  const {axiosInstance, household} = UseContext();
 
 
 

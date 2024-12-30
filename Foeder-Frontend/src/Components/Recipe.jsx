@@ -1,11 +1,11 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 
 export function Recipe() {
     const {id} = useParams();
-    const {axiosInstance} = UseAuth();
+    const {axiosInstance} = UseContext();
     const [recipe, setRecipe] = useState(null);
     const nav = useNavigate();
     

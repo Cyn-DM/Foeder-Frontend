@@ -1,10 +1,12 @@
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
-import {useEffect, useState} from "react";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {Bounce, toast, ToastContainer} from "react-toastify";
+import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 export default function Invites(){
-    const { invites, GetInvites, hasInvites} = UseAuth();
+    const { invites, hasInvites} = UseContext();
+    const { GetInvites } = UseAuth();
  
 
 
@@ -53,7 +55,7 @@ export default function Invites(){
 }
 
 function InviteCard ({invite, toastTriggerError, toastTriggerSuccess}){
-    const {axiosInstance} = UseAuth();
+    const {axiosInstance} = UseContext();
     const navigate = useNavigate();
 
     const handleInviteResponse = (inviteId, isAccepted) => {

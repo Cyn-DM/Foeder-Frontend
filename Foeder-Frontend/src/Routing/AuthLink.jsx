@@ -1,5 +1,6 @@
 import {Link, Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {UseAuth} from "../Authentication/AuthProvider.jsx";
 
 
@@ -25,17 +26,22 @@ export function HouseholdWrapper({household, element}) {
 }
 
 export function ProtectedRoute({ element, householdWrapper }) {
-    const { isAuthenticated , household} = UseAuth();
-    if (!isAuthenticated) {
-        console.log("it reaches not authenticated")
-        return <Navigate to="/unauthorized" replace />
+    const { isAuthenticated , household, loading} = UseContext();
+
+    if (loading) {
+        return <div>Loading…</div>; 
     }
-    
+
     if (householdWrapper){
         if (!household){
             console.log("it reaches here.")
             return <Navigate to="/household" replace />
         }
+    }
+    
+    if (!isAuthenticated) {
+        console.log("it reaches not authenticated")
+        return <Navigate to="/unauthorized" replace />
     }
     
     return element;

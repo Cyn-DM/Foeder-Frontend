@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {UseAuth} from "../Authentication/AuthProvider.jsx";
+import {UseContext} from "../Authentication/ContextProvider.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 import {Bounce, toast, ToastContainer} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 export default function AddRecipe(){
-    const {axiosInstance, household} = UseAuth();
+    const {axiosInstance, household} = UseContext();
     const nav = useNavigate();
 
     const { register, control, handleSubmit, formState: { errors },} = useForm();
