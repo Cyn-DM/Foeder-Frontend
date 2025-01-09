@@ -25,7 +25,7 @@ test.describe.serial("With stealth plugin", () => {
 
             await loginFoeder(page, foederLoginPassword);
             await page.waitForTimeout(2000);
-            await expect(page.getByRole('link', {name: 'Recipes'})).toBeVisible();
+            await expect(page.getByRole('link', {name: 'Household'})).toBeVisible();
             await browser.close();
     });
 
