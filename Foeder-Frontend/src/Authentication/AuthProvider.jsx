@@ -1,13 +1,15 @@
-import {createContext, useContext, useEffect} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {UseContext} from "./ContextProvider.jsx";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import {useNavigate} from "react-router-dom";
+import {Await, useNavigate} from "react-router-dom";
+import * as signalR from "@microsoft/signalr/";
 const AuthProv = createContext(null)
 
 export function AuthProvider({children}) {
-    const {user, setLoading, setUser, setIsAuthenticated, isAuthenticated, household, backendUrl, setHousehold, axiosInstance, invites, setHasInvites, setInvites} = UseContext();
+    const {user, setLoading, setUser, setIsAuthenticated, isAuthenticated, household, backendUrl, setHousehold, axiosInstance, invites, setHasInvites, setInvites, backendSignalRUrl, userRefresh, setUserRefresh} = UseContext();
     const navigator = useNavigate();
+    const [inviteNotification, setInviteNotification] = useState(null);
     
     
     useEffect(() => {
@@ -22,7 +24,37 @@ export function AuthProvider({children}) {
         }
     }, [user])
 
+    useEffect(() => {
+        if (userRefresh === true) {
+            setAccessTokenFromRefresh();
+            setUserRefresh(false);
+        }
+    }, [userRefresh]);
 
+
+    const  connectToHub = () => {
+        let inviteUrl = backendSignalRUrl + "/inviteHub";
+        
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl(inviteUrl, {accessTokenFactory: () =>  {
+                    let token = localStorage.getItem('access_token')
+
+                    if (token.startsWith('Bearer ')) {
+                        token = token.substring(7); 
+                    }
+                    
+                    return token;
+            } })
+            .build();
+        
+        connection.start()
+            .then(
+                connection.on('ReceiveInvite', (message) => {setInviteNotification(message);})
+            )
+            .catch(error => { console.log(error)})
+
+    }
+    
     const setAccessTokenFromRefresh = () => {
         axios.get("/Auth/refresh", {withCredentials: true, baseURL: backendUrl}).then((response) => {
             setAccessTokenLocalStorage(response.data);
@@ -80,6 +112,7 @@ export function AuthProvider({children}) {
     const login = (user) => {
         setUser(user);
         setIsAuthenticated(true);
+        connectToHub();
     }
 
     const createUser = (accessToken) => {
@@ -180,6 +213,7 @@ export function AuthProvider({children}) {
         handleCredentialResponse,
         refreshAuth,
         logout,
+        inviteNotification,
     }}>
         {children}
     </AuthProv.Provider>);
