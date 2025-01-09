@@ -63,7 +63,15 @@ export function AuthProvider({children}) {
         })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
-                    logout();
+                    axios.get("/Auth/refresh", {withCredentials: true, baseURL: backendUrl}).then((response) => {
+                        setAccessTokenLocalStorage(response.data);
+                        const createdUser = createUser(response.data);
+                        login(createdUser);
+                    }).catch((error) => {
+                        if (error.response && error.response.status === 401) {
+                            logout();
+                        }
+                    })
                 }
             })
     }
