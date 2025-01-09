@@ -11,19 +11,20 @@ export function ContextProvider({children})
     const [invites, setInvites] = useState(null);
     const [hasInvites, setHasInvites] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    const refreshForRouter = () => {
-        
-}
+    const [userRefresh, setUserRefresh] = useState(false);
+    
     
 
     let docker = false;
     docker = Boolean(import.meta.env.VITE_DOCKER);
     let backendUrl;
+    let backendSignalRUrl;
     if (docker) {
         backendUrl =  'https://backend:7058/api';
+        backendSignalRUrl =  'https://backend:7058';
     } else {
         backendUrl =  'https://localhost:7058/api';
+        backendSignalRUrl ='https://localhost:7058';
     }
     const axiosInstance = axios.create({
         baseURL: backendUrl,
@@ -43,6 +44,7 @@ export function ContextProvider({children})
             household,
             setHousehold,
             backendUrl,
+            backendSignalRUrl,
             axiosInstance,
             invites, 
             setInvites,
@@ -50,6 +52,8 @@ export function ContextProvider({children})
             setHasInvites,
             loading, 
             setLoading, 
+            userRefresh,
+            setUserRefresh,
         }}>
             {children}
         </ContextProv.Provider>

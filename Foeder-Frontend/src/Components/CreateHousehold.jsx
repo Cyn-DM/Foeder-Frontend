@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 export function CreateHousehold() {
-    const { axiosInstance } = UseContext();
+    const { axiosInstance, setUserRefresh } = UseContext();
     const [labelText, setLabelText] = useState("")
     const navigate = useNavigate();
     function handleClick(){
@@ -19,6 +19,7 @@ export function CreateHousehold() {
                 .then((response) => {
                     if (response.status === 200){
                         navigate('/Household');
+                        setUserRefresh(true);
                     }
                 })
                 .catch((error) => {
