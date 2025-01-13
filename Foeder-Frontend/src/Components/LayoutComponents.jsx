@@ -3,11 +3,14 @@ import '../mainplus.css';
 import { UseContext} from "../Authentication/ContextProvider.jsx";
 import {AuthLink, HouseholdWrapper} from "../Routing/AuthLink.jsx";
 import {AuthProvider, UseAuth} from "../Authentication/AuthProvider.jsx";
+import {Bounce, toast, ToastContainer} from "react-toastify";
+import {useEffect} from "react";
 
 
 export default function Root(){
     return (
         <AuthProvider>
+            <InviteToast/>
             <div className="h-[100vh] overflow-hidden">
                 <Header/>
                 <div className="w-full full-screen-container">
@@ -83,5 +86,31 @@ export function ContentWrapper({children}) {
         <div className="mx-auto flex gap-5 px-6 xl:px-96 mt-8">
             {children}
         </div>
+    )
+  }
+
+  function InviteToast() {
+      const {inviteNotification} = UseAuth();
+
+      useEffect(() => {
+          if (inviteNotification){
+              toast.info(inviteNotification);
+          }
+      }, [inviteNotification])
+      
+    return (
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+        />
     )
   }
